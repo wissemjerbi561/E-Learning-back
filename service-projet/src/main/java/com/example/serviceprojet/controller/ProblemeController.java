@@ -2,8 +2,10 @@ package com.example.serviceprojet.controller;
 
 import com.example.serviceprojet.Services.ProblemeServiceImpl;
 import com.example.serviceprojet.Services.ProjetServiceImp;
+import com.example.serviceprojet.entity.Activite;
 import com.example.serviceprojet.entity.Probleme;
 import com.example.serviceprojet.entity.Projet;
+import com.example.serviceprojet.repository.ActiviteRepository;
 import com.example.serviceprojet.repository.ProblemeRepository;
 import com.example.serviceprojet.repository.ProjetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -26,6 +29,8 @@ public class ProblemeController {
     ProblemeRepository problemeRepository;
     @Autowired
     ProjetRepository projetRepository;
+    @Autowired
+    ActiviteRepository activiteRepository;
     @Autowired
     ProblemeServiceImpl problemeService;
     public ProblemeController(ProblemeRepository problemeRepository) {
@@ -85,6 +90,13 @@ public class ProblemeController {
     @ResponseBody
     List<Probleme> getProblemeByProjet(@PathVariable("idProjet") Long idProjet) {
         return problemeService.getProbemeByProjet(idProjet);
+    }
+
+    @GetMapping("/{idProbleme}/activites")
+    public List<Activite> getActivitesByProbleme(@PathVariable Long idProbleme) {
+        Probleme probleme = problemeRepository.findById(idProbleme)
+                .orElseThrow(() -> new NoSuchElementException("probleme non trouvé"));
+        return activiteRepository.findByProbleme(probleme);
     }
 
     }

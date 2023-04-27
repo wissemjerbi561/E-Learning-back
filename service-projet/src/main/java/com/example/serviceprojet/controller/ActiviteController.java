@@ -49,7 +49,7 @@ public class ActiviteController {
         activiteRepository.deleteById(idActivite);
     }
 
-    @PostMapping("/add-activite/{idProbleme}")
+    @PostMapping("/add-activity/{idProbleme}")
     public void ajouterActivite(@RequestBody Activite activite,@PathVariable ("idProbleme") Long idProbleme){
         activiteService.ajouterActivite(activite, idProbleme);
 
