@@ -1,5 +1,8 @@
 package com.example.serviceprojet.controller;
 
+import com.example.serviceprojet.Services.ActiviteServiceImpl;
+import com.example.serviceprojet.Services.TacheServiceImpl;
+import com.example.serviceprojet.entity.Activite;
 import com.example.serviceprojet.entity.Projet;
 import com.example.serviceprojet.entity.Tache;
 import com.example.serviceprojet.repository.ProjetRepository;
@@ -16,6 +19,8 @@ public class TacheController {
 
     @Autowired
     TacheRepository tacheRepository;
+    @Autowired
+    TacheServiceImpl tacheService;
 
     public TacheController(TacheRepository tacheRepository) {
         this.tacheRepository = tacheRepository;
@@ -53,5 +58,8 @@ public class TacheController {
         tacheRepository.deleteById(idTache);
     }
 
-
+    @PostMapping("/add-tache/{idActivite}")
+    public void ajouterTahe(@RequestBody Tache tache, @PathVariable ("idActivite") Long idActivite) {
+        tacheService.ajouterTache(tache, idActivite);
+    }
 }

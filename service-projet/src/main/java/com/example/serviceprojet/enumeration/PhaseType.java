@@ -2,9 +2,9 @@ package com.example.serviceprojet.enumeration;
 
 public enum PhaseType {
 
-    Lancement,
-    Planification,
-    Exécution,
-    Contrôle_et_suivi,
-    Clôture,
+    Initializtion,
+    Planning,
+    Realization,
+    Evaluate,
+    Experience_evaluation,
 }

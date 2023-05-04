@@ -1,12 +1,15 @@
 package com.example.serviceprojet.controller;
 
 import com.example.serviceprojet.Services.ProjetServiceImp;
+import com.example.serviceprojet.entity.Phase;
 import com.example.serviceprojet.entity.Probleme;
 import com.example.serviceprojet.entity.Projet;
+import com.example.serviceprojet.repository.PhaseRepository;
 import com.example.serviceprojet.repository.ProblemeRepository;
 import com.example.serviceprojet.repository.ProjetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +28,8 @@ public class ProjetController {
     ProjetRepository projetRepository;
     @Autowired
     ProblemeRepository problemeRepository;
+    @Autowired
+    PhaseRepository phaseRepository;
     @Autowired
     ProjetServiceImp projetService;
 
@@ -103,6 +108,22 @@ return  ResponseEntity.ok(updateprojet);
                 .orElseThrow(() -> new NoSuchElementException("Projet non trouvé"));
         return problemeRepository.findByProjet(projet);
     }
+    @GetMapping("/{idProjet}/phases")
+    public List<Phase> getPhasesByProjet(@PathVariable Long idProjet) {
+        Projet projet = projetRepository.findById(idProjet)
+                .orElseThrow(() -> new NoSuchElementException("Projet non trouvé"));
+        return phaseRepository.findByProjet(projet);
+    }
+    @PutMapping("/{idProjet}/start")
+    public ResponseEntity<Projet> startProjet(@PathVariable Long idProjet) {
+        Projet projet = projetService.startProjet(idProjet);
+        if (projet == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(projet);
+    }
+
+
 
 
 }

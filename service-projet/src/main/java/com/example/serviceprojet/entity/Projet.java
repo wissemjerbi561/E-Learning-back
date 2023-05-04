@@ -1,5 +1,6 @@
 package com.example.serviceprojet.entity;
 
+import com.example.serviceprojet.enumeration.PhaseType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,11 +23,21 @@ public class Projet {
     private String description;
     private Date DateDebut;
     private Date DateFin;
+    private Long idPhaseActuelle;
+ private boolean demarre =false;
     @ManyToOne
     @JsonIgnore
    private Cours cours;
 
     @OneToMany(cascade = CascadeType.ALL ,mappedBy = "projet")
     private Set<Probleme> problemes;
+
+    //@ManyToMany(cascade = CascadeType.ALL)
+   // @JoinTable(
+     //       name = "projet_phase",
+     //       joinColumns = @JoinColumn(name = "idProjet"),
+     //       inverseJoinColumns = @JoinColumn(name = "idPhase")
+    //)
+    //private List<Phase> phases;
 
 }

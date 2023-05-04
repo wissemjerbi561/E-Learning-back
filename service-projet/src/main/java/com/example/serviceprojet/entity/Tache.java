@@ -17,6 +17,7 @@ public class Tache {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idTache;
+    private String description;
     private Date DateDebut;
     private Date DateFin;
     private Float Pourcentage;

@@ -2,12 +2,18 @@ package com.example.serviceprojet.controller;
 
 import com.example.serviceprojet.Services.ActiviteServiceImpl;
 import com.example.serviceprojet.entity.Activite;
+import com.example.serviceprojet.entity.Probleme;
 import com.example.serviceprojet.entity.Projet;
+import com.example.serviceprojet.entity.Tache;
 import com.example.serviceprojet.repository.ActiviteRepository;
+import com.example.serviceprojet.repository.TacheRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -15,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 public class ActiviteController {
     @Autowired
     ActiviteRepository activiteRepository;
+    @Autowired
+    TacheRepository tacheRepository;
     @Autowired
     ActiviteServiceImpl activiteService;
 
@@ -54,4 +62,10 @@ public class ActiviteController {
         activiteService.ajouterActivite(activite, idProbleme);
 
 
+    }
+    @GetMapping("/{idActivite}/taches")
+    public List<Tache> getTachesByActivite(@PathVariable Long idActivite) {
+        Activite activite = activiteRepository.findById(idActivite)
+                .orElseThrow(() -> new NoSuchElementException("activite non trouvé"));
+        return tacheRepository.findByActivite(activite);
     }}

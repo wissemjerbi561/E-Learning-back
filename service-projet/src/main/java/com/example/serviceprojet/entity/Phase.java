@@ -29,4 +29,5 @@ private Projet projet;
 @ManyToOne
 @JsonIgnore
 private Nature nature;
+
 }
