@@ -41,7 +41,7 @@ public class PositionController  {
     public void  updatePosition(@PathVariable Long id,@RequestBody Position position) {
         Position position1 = positionRepository.findById(id).orElse(null);
         if (position1 != null) {
-            position1.setPosisionId(position.getPosisionId());
+            position1.setPositionId(position.getPositionId());
             position1.setName(position.getName());
 
             positionRepository.save(position1);

@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -15,10 +18,8 @@ import java.io.Serializable;
 public class Position implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long posisionId;
+    private Long positionId;
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "position_id",referencedColumnName = "id")
-    private Member member;
+
 }

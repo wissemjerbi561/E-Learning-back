@@ -6,9 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Data
@@ -31,9 +29,12 @@ public class Member implements Serializable {
     @JoinTable(name="member_evaluation", joinColumns = @JoinColumn(name = "memberId"),
             inverseJoinColumns = @JoinColumn(name = "evaluationId"))
     private List<Evaluation> evaluations;
+    @Transient
+    private List<Long> lstPositionId;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Position> positions=new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
-    private Set<Position> positions = new HashSet<>();
+
 
 
 
