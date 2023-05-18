@@ -1,0 +1,245 @@
+{
+    "intents": [
+
+
+        {
+            "tag": "greeting",
+            "patterns": [
+                "bonjour","Bonjour","bonjour cava ?" , "salut" , "Bonne journée" ,"bonne journée" ,"bonne journee" , "Bonne soirée" , "cc cv"  , "comment allez vous" ,"coucou" , "t la" , "t'es la" , "ou est tu" , "tu est la " ,
+                "Is anyone there?",
+                "Hey",
+                "Hola",
+                "Hello",
+                "Good day",
+                "yo",
+                "aslema" , "ahla" , "ahla bik" , "waa" , "wa" ,"waaa" , "bro" , "ya 8ali" , "5ouya " , "ya behi " , "5ouya l behi" , "ya m3alem" , "ya fr" , "ahla bl frr" , "wink" , "wink ay" ,"ti wink" ,"wa bro",
+                "sba7 el khir" ,"sbah el khir" , "sbe7 el khir" , "sbeh el khir","winek" ,"wenek" , "wenk"
+            ],
+            "responses": [
+                "Bonjour !",
+                "Bonjour ! heureux de vous voir",
+                "Salut ! "
+            ],
+            "context": [
+                ""
+            ]
+        },
+        {
+            "tag": "goodbye",
+            "patterns": [
+                "Bye",
+                "See you later",
+                "Goodbye", "tchao" ,"ciao" ,
+                "Get lost",
+                "Till next time",
+                "bbye",
+                "bn8" , "liltek zina" , "go away" , "a la prochaine" ,"à la prochaine fois" ,"a demain" , "à demain" ,"à la semaine prochaine" ,"le lendemain" ,"à bientôt",
+                "a bientot" , "à plus tard" ,"au revoir" , "bonne nuit" ,"très proche" ,"à tout à l’heure" , "a tout a l'heure" ,"Bonne soirée"
+            ],
+            "responses": [
+                "Merci ! bonne journée",
+                "Merci ! bonne nuit !",
+                "D'accord ! à la prochaine fois. Merci"
+            ],
+            "context": [
+                ""
+            ]
+        },
+        {
+            "tag": "thanks",
+            "patterns": [
+                "Merci",
+                "aychou",
+                "aych 5ouya",
+                "merci bro",
+                "Thanks for helping me",
+                "thank you", "thanks" , "mrigl" 
+            ],
+            "responses": [
+                "Je suis la pour toujours ! Merci pour votre temps",
+               "C'est gentil ! Merci"
+            ],
+            "context": [
+                ""
+            ]
+        },
+
+        {
+            "tag": "options",
+            "patterns": [
+                "How you could help me?",
+                "What you can do?",
+                "What help you provide?",
+                "How you can be helpful?",
+                "What support is offered" ,"how" , "what" , 
+                "pourrais-tu m'aider s'il te plait" ,"aide moi" , "c'est difficile" ,"resoudre" , "comment"  , "difficile" , "pas facile", "je ne peux pas" ,"tu peux" , "peux tu resoudre" , "est ce que tu peux" ,"tu peux faire" , "est ce que" , "est il possible" , "est il facile de faire" , "comment faire" , "comment resoudre",
+                 "3aweni" ,"kifeh tnjam t3awen" ,"kifeh tnajm t3aweni" , "kifeh" , "kifech " , "kifeh najm" , "kifeh najm naaml" , "kifech najm naaml" , "w7elt" ,"rani w7elt", "pfff" ,"pff", "s3iba" , "s3iba alia"
+            ],
+            "responses": [
+            "Pour le moment ! je suis incapable de vous aider , je suis debutant "
+            ],
+            "context": [
+                ""
+            ]
+        },
+
+        {
+            "tag": "Identity",
+            "patterns": [
+                "Who are you", "what's your job" , "your job" ,"your role" , "what is you job" ,"what's your role" , 
+                "how old are you" , "your old" ,"your age" ,"your date" ,"humain or robot" , "are you a robot",
+                "what are you name", "your name" ,"are you a robot" , "are you humain" ,
+                "t ki" , "t'est qui" ,"t qui" ,"votre nom" , "ton nom " , "homme ou femme" ," t'est un homme ou une femme" ,"femme ou homme", "ta nature" , "toi" ,"ta fonction" , "ton role" ,"votre role" ,"ton role" ,"tes acctivités" ,"tes fonctions" ,"tes fonctionalités" , "pourquoi t'est ici" ,"pourquoi t la" ,"pk t la" , "pk t ici" , "pk t la" , "pk t existe" ,"ta existance" ,"pk t existe" ,"existe t'il ",
+                "tu es un robot" ,"t es robot" ,"c'est quoi toi" ,"c'est quoi ton role" ,"c quoi toi" ,"c quoi ton role" ,"ton role" ,
+               "lweh enti mawjoud", "chtaarf taaml","chnoua taarf taaml","chtaaml f denya","chnoua tnajm taaml" ,"chnoua taaml" , "enti chkoun" ,"chnoua enti" ,"enti chnoua" ,"ye5i enti robot" , "enti robot wela 3abd" , "enti robot" ,"rajl wela mra" , "enti rajl" ,"enti mra" ,"enti 3abd" ,"enti abd" , "taw enti chkoun" ,"taw enti rajl" ,"taw enti 3abd"
+            ],
+            "responses": [
+                "Je suis le robot de Orange Tunisie , je suis la pour vous aider "
+            ]
+        },
+
+        {
+            "tag": "whatsup",
+            "patterns": [
+                "Whats up",
+                "Wazzup",
+                "How are you",
+                "sup","How you doing"
+            ],
+            "responses": [
+                "All good..What about you?"
+            ]
+        },
+        {
+            "tag": "haha",
+            "patterns": [
+                "haha",
+                "lol",
+                "rofl",
+                "lmao",
+                "thats funny"
+            ],
+            "responses": [
+                "Glad I could make you laugh !"
+            ]
+        },
+        {
+            "tag": "programmer",
+            "patterns": [
+                "Who made you",
+                "who designed you",
+                "who programmed you"
+            ],
+            "responses": [
+                "I was made by Digital Factory."
+            ]
+        },
+        {
+            "tag": "insult",
+            "patterns": [
+
+                "you are dumb",
+
+                "shut up",
+                "idiot"
+            ],
+            "responses": [
+                "Well that hurts :("
+            ]
+        },
+
+        {
+            "tag": "exclaim",
+            "patterns": [
+                "Awesome",
+                "Great",
+                "I know",
+                "ok",
+                "yeah"
+            ],
+            "responses": [
+                "Yeah!"
+            ]
+        },
+
+
+        {
+            "tag": "appreciate",
+            "patterns": [
+                "You are awesome",
+                "you are the best",
+                "you are great",
+                "you are good"
+            ],
+            "responses": [
+                "Thank you!"
+            ]
+        },
+
+        {
+            "tag": "no",
+            "patterns": [
+                "no",
+                "nope"
+            ],
+            "responses": [
+                "ok"
+            ]
+        },
+
+        {
+            "tag": "greetreply",
+            "patterns": [
+                "i am good",
+                "I'm good",
+                "i am fine",
+                " i'm fine","good"
+            ],
+            "responses": [
+                "Good to know!"
+            ]
+        },
+
+        {
+            "tag": "suggest",
+            "patterns": [
+                "you are useless","useless","suggest","suggestions","you are bad"
+            ],
+            "responses": [
+                "Merci de contacter l'equipe Digital Factory pour donner d'avis ."
+            ]
+        },
+            {"tag": "riddle",
+            "patterns": [
+                "Ask me a riddle",
+                "Ask me a question",
+                "Riddle"
+            ],
+            "responses": [
+                "What two things can you never eat for breakfast?.....Lunch and Dinner!",
+                "What word is spelled incorrectly in every single dictionary?.....Incorrectly",
+                " How can a girl go 25 days without sleep?.....She sleeps and night!",
+                "How do you make the number one disappear?.....Add the letter G and it’s 'gone'!",
+                " What will you actually find at the end of every rainbow?.....The letter 'w'",
+                "What can be caught but never thrown?.....A cold!",
+                "What has a thumb and four fingers but is not actually alive?.....Your Gloves!",
+                " What 5-letter word becomes shorter when you add two letters to it?.....Short",
+                "Why can't a bike stand on it's own?.....It is two-tired."
+            ],
+            "context": [
+                "riddles"
+            ]
+        },
+        {
+            "tag": "age",
+            "patterns": [
+                "how old are you","when were you made","what is your age"
+            ],
+            "responses": [
+                "I was made in 2020, if that's what you are asking!"
+            ]
+        }
+
+       
+    ]
+}
