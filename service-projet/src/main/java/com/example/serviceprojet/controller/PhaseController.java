@@ -1,18 +1,29 @@
 package com.example.serviceprojet.controller;
 
+import com.example.serviceprojet.Services.PhaseServiceImpl;
+import com.example.serviceprojet.Services.ProjetServiceImp;
 import com.example.serviceprojet.entity.Phase;
 import com.example.serviceprojet.entity.Projet;
 import com.example.serviceprojet.repository.PhaseRepository;
 import com.example.serviceprojet.repository.ProjetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.*;
+
 @RestController
 @RequestMapping("/phase")
+@CrossOrigin(origins = "*")
+
 public class PhaseController {
     @Autowired
     PhaseRepository phaseRepository;
+    @Autowired
+    ProjetRepository projetRepository;
+    @Autowired
+    PhaseServiceImpl phaseService;
 
     public PhaseController(PhaseRepository phaseRepository) {
         this.phaseRepository = phaseRepository;
@@ -38,6 +49,7 @@ public class PhaseController {
             phase1.setPhaseType(phase.getPhaseType());
 
 
+
             phaseRepository.save(phase1);
         }
     }
@@ -45,5 +57,15 @@ public class PhaseController {
     public void deletePhaseById(@PathVariable Long idPhase) {
         phaseRepository.deleteById(idPhase);
     }
+
+
+    @PutMapping("/phases/{phaseId}")
+    public void updatePhase(@PathVariable Long phaseId, @RequestBody Map<String, Object> update) {
+        Date dateFin = (Date) update.get("dateFin");
+        String status = (String) update.get("status");
+        phaseService.updatePhase(phaseId, dateFin, status);
+    }
+
+
 
 }

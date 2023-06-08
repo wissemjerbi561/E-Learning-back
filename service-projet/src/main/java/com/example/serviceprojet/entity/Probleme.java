@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -22,6 +23,15 @@ public class Probleme {
   private String nom;
  private Date DateDebut;
     private Date DateFin;
+    private int dure;
+    private boolean status= false; ;
+
+    private String cheminFichier;
+
+    @Transient
+    private MultipartFile file;
+
+
     @ManyToOne
     @JsonIgnore
     private Projet projet;

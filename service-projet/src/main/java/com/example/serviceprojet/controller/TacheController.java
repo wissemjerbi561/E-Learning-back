@@ -8,6 +8,7 @@ import com.example.serviceprojet.entity.Tache;
 import com.example.serviceprojet.repository.ProjetRepository;
 import com.example.serviceprojet.repository.TacheRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,19 +42,28 @@ public class TacheController {
         return tacheRepository.findById(idTache).orElse(null);
     }
 
-    @PutMapping(value = "/{idTache}")
-    public void updateTache(@PathVariable Long idTache, @RequestBody Tache tache) {
-        Tache tache1 = tacheRepository.findById(idTache).orElse(null);
-        if (tache1 != null) {
-            tache1.setDateDebut(tache.getDateDebut());
-            tache1.setDateFin(tache.getDateFin());
-            tache1.setPourcentage(tache.getPourcentage());
 
-            tacheRepository.save(tache1);
-        }
+    @PutMapping("/{idTache}")
+    public ResponseEntity<Tache> updatetache(@PathVariable Long idTache, @RequestBody Tache tache) {
+        Tache tache1 = tacheRepository.findById(idTache).orElseThrow(() -> new ResourceNotFoundException("projet not exist with id" + idTache));
+        tache1.setDateDebut(tache.getDateDebut());
+        tache1.setDateFin(tache.getDateFin());
+        tache1.setDescription(tache.getDescription());
+        tache1.setDure(tache.getDure());
+        Tache updatetache = tacheRepository.save(tache1);
+        return  ResponseEntity.ok(updatetache);
+    }
+    @PutMapping("/{idTache}/deactiver")
+    public ResponseEntity<Tache> deactivertache(@PathVariable Long idTache, @RequestBody Tache tache) {
+        Tache tache1 = tacheRepository.findById(idTache).orElseThrow(() -> new ResourceNotFoundException("tache not exist with id" + idTache));
+        tache1.setStatus(true); // Désactiver tache
+
+        Tache updateTache = tacheRepository.save(tache1);
+        return ResponseEntity.ok(updateTache);
     }
 
-    @DeleteMapping("/{idTache}")
+    @DeleteMapping("/" +
+            "{idTache}")
     public void deleteTacheById(@PathVariable Long idTache) {
         tacheRepository.deleteById(idTache);
     }

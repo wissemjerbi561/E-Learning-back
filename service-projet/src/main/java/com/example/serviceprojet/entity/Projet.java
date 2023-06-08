@@ -25,6 +25,7 @@ public class Projet {
     private Date DateFin;
     private Long idPhaseActuelle;
  private boolean demarre =false;
+ private boolean status= false; ;
     @ManyToOne
     @JsonIgnore
    private Cours cours;

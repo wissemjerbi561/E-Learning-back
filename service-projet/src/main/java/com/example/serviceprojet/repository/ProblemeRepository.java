@@ -15,4 +15,6 @@ import java.util.List;
 public interface ProblemeRepository extends JpaRepository<Probleme,Long> {
  //   List<Probleme> findByProjet(Projet p);
  List<Probleme> findByProjet(Projet projet);
+ List<Probleme> findByStatusFalse();
+
 }

@@ -3,7 +3,6 @@ package com.example.serviceprojet.controller;
 import com.example.serviceprojet.Services.ActiviteServiceImpl;
 import com.example.serviceprojet.entity.Activite;
 import com.example.serviceprojet.entity.Probleme;
-import com.example.serviceprojet.entity.Projet;
 import com.example.serviceprojet.entity.Tache;
 import com.example.serviceprojet.repository.ActiviteRepository;
 import com.example.serviceprojet.repository.TacheRepository;
@@ -44,7 +43,7 @@ public class ActiviteController {
 
 
     @PutMapping("/{idActivite}")
-    public ResponseEntity<Activite> updateactivite(@PathVariable Long idActivite, @RequestBody Activite activite) {
+    public ResponseEntity<Activite> updateactivite(@PathVariable Long idActivite,@RequestBody Activite activite) {
         Activite activite1 = activiteRepository.findById(idActivite).orElseThrow(() -> new ResourceNotFoundException("projet not exist with id" + idActivite));
         activite1.setDateDebut(activite.getDateDebut());
         activite1.setDateFin(activite.getDateFin());
@@ -57,15 +56,32 @@ public class ActiviteController {
         activiteRepository.deleteById(idActivite);
     }
 
+
+
     @PostMapping("/add-activity/{idProbleme}")
     public void ajouterActivite(@RequestBody Activite activite,@PathVariable ("idProbleme") Long idProbleme){
+
         activiteService.ajouterActivite(activite, idProbleme);
 
 
     }
+
+
+
+    @PutMapping("/{idActivite}/deactiver")
+    public ResponseEntity<Activite> deactiveractivite(@PathVariable Long idActivite, @RequestBody Activite activite) {
+        Activite activite1 = activiteRepository.findById(idActivite).orElseThrow(() -> new ResourceNotFoundException("Activite not exist with id" + idActivite));
+        activite1.setStatus(true); // Désactiver le activite
+
+        Activite updateactivite = activiteRepository.save(activite1);
+        return ResponseEntity.ok(updateactivite);
+    }
+
     @GetMapping("/{idActivite}/taches")
     public List<Tache> getTachesByActivite(@PathVariable Long idActivite) {
         Activite activite = activiteRepository.findById(idActivite)
                 .orElseThrow(() -> new NoSuchElementException("activite non trouvé"));
-        return tacheRepository.findByActivite(activite);
+        List<Tache> tacheList = tacheRepository.findByStatusFalse();
+
+        return tacheList;
     }}

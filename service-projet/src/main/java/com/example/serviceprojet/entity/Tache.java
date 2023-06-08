@@ -21,7 +21,10 @@ public class Tache {
     private Date DateDebut;
     private Date DateFin;
     private Float Pourcentage;
-   // @ManyToOne
+    private int dure;
+    private boolean status= false; ;
+
+    // @ManyToOne
    // @JsonIgnore
   //  private Probleme probleme;
     //manoytooneactivites

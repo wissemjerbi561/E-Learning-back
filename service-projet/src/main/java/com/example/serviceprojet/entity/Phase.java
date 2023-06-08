@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,13 +18,22 @@ public class Phase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idPhase;
+    private String description;
+    private String status;
     private Boolean etat;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateDebut;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateFin;
     private PhaseType phaseType;
 
 //manytoone projet
 @ManyToOne
 @JsonIgnore
 private Projet projet;
+    @ManyToOne
+    @JsonIgnore
+    private TypePhase typePhase;
 
 //manytoone nature
 @ManyToOne

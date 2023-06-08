@@ -23,8 +23,12 @@ public class TacheServiceImpl implements  ITacheService {
 
         Activite activite = activiteRepository.findById(idActivite).orElse(null);
         //  User User = userRepository.findById(Id).orElse(null);
+        if (tache.getDure() > activite.getDure()) {
+            throw new IllegalArgumentException("La durée de la tache ne peut pas dépasser la durée du activite.");
+        }
         tache.setActivite(activite);
         tacheRepository.save(tache);
 
     }
+
 }

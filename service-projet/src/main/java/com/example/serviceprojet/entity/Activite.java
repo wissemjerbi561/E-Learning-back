@@ -21,6 +21,9 @@ public class Activite {
     private String description;
     private Date DateDebut;
     private Date DateFin;
+    private int dure;
+    private boolean status= false; ;
+
     @ManyToOne
     @JsonIgnore
     private Probleme probleme;
