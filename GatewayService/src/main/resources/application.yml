@@ -1,16 +1,24 @@
 
-
-
 spring:
   application:
-    name: getway_service
+    name: gateway-service
   cloud:
    gateway:
      routes:
-       - id: membre_service
+       - id: member-service
          uri: http://localhost:8081
          predicates:
            - Path=/member/**
+           #- Path=/evaluation/**
+           #- Path=/position/**
+       - id: paiement-service
+         uri: http://localhost:8080
+         predicates:
+           - Path=/payment/**
+           #- Path=/orderItem/**
+           #- Path=/cart/**
+
+
    
 
      default-filters:

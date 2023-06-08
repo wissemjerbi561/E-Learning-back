@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value= "/cour")
+@RequestMapping(value= "/payment/cour")
 @CrossOrigin(value = "*")
 public class CourController {
     @Autowired

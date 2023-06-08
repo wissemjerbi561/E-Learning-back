@@ -18,7 +18,7 @@ public class Payment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
-    private int amount;
+    private float amount;
     //local date time
     @CreationTimestamp
     private Date date;

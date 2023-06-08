@@ -1,18 +1,13 @@
 package com.membre.membre.Controllers;
 
-import com.membre.membre.Entities.Evaluation;
-import com.membre.membre.Entities.Member;
 import com.membre.membre.Entities.Position;
-import com.membre.membre.Repositories.EvaluationRepository;
-import com.membre.membre.Repositories.MemberRepository;
 import com.membre.membre.Repositories.PositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value= "/position")
+@RequestMapping(value= "/member/position")
 @CrossOrigin(value = "*")
 public class PositionController  {
     @Autowired

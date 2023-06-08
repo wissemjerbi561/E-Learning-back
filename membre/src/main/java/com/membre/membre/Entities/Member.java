@@ -18,6 +18,9 @@ public class Member implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
+    @Lob
+    //@Column(columnDefinition = "MEDIUMBLOB")
+    private String image;
     private String firstName;
     private String lastName;
     private String email;
@@ -25,10 +28,11 @@ public class Member implements Serializable {
     private float finalNote;
     private String gitLink;
     private String driveLink;
-    @ManyToMany
+/*    @ManyToMany
     @JoinTable(name="member_evaluation", joinColumns = @JoinColumn(name = "memberId"),
             inverseJoinColumns = @JoinColumn(name = "evaluationId"))
-    private List<Evaluation> evaluations;
+    private List<Evaluation> evaluations;*/
+
     @Transient
     private List<Long> lstPositionId;
     @ManyToMany(fetch = FetchType.EAGER)

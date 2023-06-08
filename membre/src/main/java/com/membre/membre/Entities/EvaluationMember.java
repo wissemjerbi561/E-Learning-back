@@ -6,20 +6,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "evaluation")
-public class Evaluation implements Serializable {
+@Table(name = "evaluationMember")
+public class EvaluationMember implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long evaluationId;
-    private float finalNote;
-    @ManyToMany
+
+    //private float finalNote;
+
+/*    @ManyToMany
     @JoinTable(name="member_evaluation", joinColumns = @JoinColumn(name = "evaluationId"),
             inverseJoinColumns = @JoinColumn(name = "memberId"))
-    private List<Member> members;
+    private List<Member> members;*/
+    @ManyToOne
+    private Member member;
+
 }
