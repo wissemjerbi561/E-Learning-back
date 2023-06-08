@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface ActiviteRepository  extends JpaRepository<Activite,Long> {
     List<Activite> findByProbleme(Probleme probleme);
+    List<Activite> findByStatusFalse();
 
 }

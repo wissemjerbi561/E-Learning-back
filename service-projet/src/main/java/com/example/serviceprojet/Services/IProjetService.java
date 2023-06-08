@@ -1,6 +1,7 @@
 package com.example.serviceprojet.Services;
 
 import com.example.serviceprojet.entity.Projet;
+import com.example.serviceprojet.entity.Tache;
 
 import java.util.List;
 
@@ -10,6 +11,6 @@ public interface IProjetService {
 
     Projet startProjet(Long idProjet);
 
-
+    public List<Tache> getTachesDuProjet(Long idProjet);
     //   public List<Projet> SearchProjetByDescription(String description);
 }

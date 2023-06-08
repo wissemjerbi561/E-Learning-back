@@ -19,6 +19,9 @@ public class ActiviteServiceImpl  implements IActiviteService {
         // TODO Auto-generated method stub
 
         Probleme probleme = problemeRepository.findById(idProbleme).orElse(null);
+        if (activite.getDure() > probleme.getDure()) {
+            throw new IllegalArgumentException("La durée de l'activité ne peut pas dépasser la durée du problème.");
+        }
         //  User User = userRepository.findById(Id).orElse(null);
         activite.setProbleme(probleme);
         activiteRepository.save(activite);
