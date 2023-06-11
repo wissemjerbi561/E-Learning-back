@@ -1,6 +1,6 @@
 package com.insy2s.KeyCloakAuth.service;
 
-import com.insy2s.KeyCloakAuth.GedClient.GedClient;
+
 import com.insy2s.KeyCloakAuth.dto.UserDto;
 import com.insy2s.KeyCloakAuth.model.*;
 import com.insy2s.KeyCloakAuth.repository.RoleRepository;
@@ -38,8 +38,7 @@ public class UserService {
     private RoleRepository roleRepository;
     @Autowired
     private RoleService roleService;
-    @Autowired
-    private GedClient gedClient;
+
     @Autowired
     RestTemplate restTemplate;
     @Autowired

@@ -1,3 +1,4 @@
+
 server:
   port: 8082
 
@@ -6,8 +7,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://keycloak.fethi.synology.me/auth/realms/KeyClock-INSY2S
-          jwk-set-uri: https://keycloak.fethi.synology.me/auth/realms/KeyClock-INSY2S/protocol/openid-connect/certs
+          issuer-uri: https://keycloak.fethi.synology.me/auth/realms/KeyClock-INSY2S-E-LEARING
+          jwk-set-uri: https://keycloak.fethi.synology.me/auth/realms/KeyClock-INSY2S-E-LEARING/protocol/openid-connect/certs
   application:
     name: Security_Service
   # Database
@@ -21,7 +22,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/SecurityKeycloak
     username: postgres
 
-    password: insy2s
+    password: admin
 
 
 

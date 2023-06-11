@@ -15,8 +15,11 @@ spring:
          uri: http://localhost:8080
          predicates:
            - Path=/payment/**
-           #- Path=/orderItem/**
-           #- Path=/cart/**
+       - id : Security_Service
+         uri: http://localhost:8082
+         predicates:
+           - Path=/api/keycloak/**
+
 
 
    
