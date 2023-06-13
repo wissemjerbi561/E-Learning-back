@@ -30,7 +30,6 @@ public  class SecurityConfig   {
 	public KeycloakSpringBootConfigResolver keycloakConfigResolver() {
 		return new KeycloakSpringBootConfigResolver();
 	}
-
 	@Bean
 	protected DefaultSecurityFilterChain configure(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests()

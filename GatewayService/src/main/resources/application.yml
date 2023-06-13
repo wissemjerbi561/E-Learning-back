@@ -12,13 +12,18 @@ spring:
            #- Path=/evaluation/**
            #- Path=/position/**
        - id: paiement-service
-         uri: http://localhost:8080
+         uri: http://localhost:8083
          predicates:
            - Path=/payment/**
-       - id : Security_Service
+       - id: security-service
          uri: http://localhost:8082
          predicates:
            - Path=/api/keycloak/**
+       - id: authentification-service
+         uri: http://localhost:8084
+         predicates:
+           - Path=/authentification/**
+
 
 
 
