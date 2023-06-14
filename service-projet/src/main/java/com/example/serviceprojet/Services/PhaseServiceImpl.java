@@ -23,6 +23,7 @@ public class PhaseServiceImpl implements IPhaseService {
         Projet projet=projetRepository.findById(idProjet).orElse(null);
         return phaseRepository.findByProjet(projet);
     }
+
     public void updatePhase(Long phaseId, Date dateFin, String status) {
         Phase phase = phaseRepository.findById(phaseId).orElse(null);
         if (phase != null) {

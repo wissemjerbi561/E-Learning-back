@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -24,21 +25,28 @@ public class Projet {
     private Date DateDebut;
     private Date DateFin;
     private Long idPhaseActuelle;
- private boolean demarre =false;
- private boolean status= false; ;
+    private boolean demarre = false;
+    private boolean status = false;
+
+    @OneToMany(mappedBy = "projet", cascade = CascadeType.ALL)
+    private List<Phase> phases = new ArrayList<>();
+
     @ManyToOne
     @JsonIgnore
-   private Cours cours;
+    private Cours cours;
 
-    @OneToMany(cascade = CascadeType.ALL ,mappedBy = "projet")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projet")
     private Set<Probleme> problemes;
 
+    public void setPhases(List<Phase> phases) {
+    }
+
     //@ManyToMany(cascade = CascadeType.ALL)
-   // @JoinTable(
-     //       name = "projet_phase",
-     //       joinColumns = @JoinColumn(name = "idProjet"),
-     //       inverseJoinColumns = @JoinColumn(name = "idPhase")
+    // @JoinTable(
+    //       name = "projet_phase",
+    //       joinColumns = @JoinColumn(name = "idProjet"),
+    //       inverseJoinColumns = @JoinColumn(name = "idPhase")
     //)
     //private List<Phase> phases;
-
 }
+

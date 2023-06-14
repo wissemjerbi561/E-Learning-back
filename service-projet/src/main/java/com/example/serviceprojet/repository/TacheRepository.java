@@ -22,5 +22,8 @@ public interface TacheRepository  extends JpaRepository<Tache,Long> {
     List<Tache> findTachesNonAffecteesAuProjet(@Param("idProjet") Long idProjet);
     List<Tache> findByStatusFalse();
 
+    @Query("SELECT t FROM Tache t WHERE t.activite.idActivite = :activiteId AND t.status = false")
+    List<Tache> findTachesWithStatusFalseByActiviteId(@Param("activiteId") Long activiteId);
+
 
 }

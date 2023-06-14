@@ -48,6 +48,7 @@ public class ActiviteController {
         activite1.setDateDebut(activite.getDateDebut());
         activite1.setDateFin(activite.getDateFin());
         activite1.setDescription(activite.getDescription());
+        activite1.setDure(activite.getDure());
         Activite updateactivite = activiteRepository.save(activite1);
         return  ResponseEntity.ok(updateactivite);
     }
@@ -77,11 +78,8 @@ public class ActiviteController {
         return ResponseEntity.ok(updateactivite);
     }
 
-    @GetMapping("/{idActivite}/taches")
-    public List<Tache> getTachesByActivite(@PathVariable Long idActivite) {
-        Activite activite = activiteRepository.findById(idActivite)
-                .orElseThrow(() -> new NoSuchElementException("activite non trouvé"));
-        List<Tache> tacheList = tacheRepository.findByStatusFalse();
 
-        return tacheList;
+    @GetMapping("/{idActivite}/taches")
+    public List<Tache> getTachesWithStatusFalse(@PathVariable("idActivite") Long idActivite) {
+        return tacheRepository.findTachesWithStatusFalseByActiviteId(idActivite);
     }}

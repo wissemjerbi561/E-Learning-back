@@ -29,7 +29,9 @@ public class Phase {
 
 //manytoone projet
 @ManyToOne
+@JoinColumn(name="projet_id_projet")
 @JsonIgnore
+
 private Projet projet;
     @ManyToOne
     @JsonIgnore
