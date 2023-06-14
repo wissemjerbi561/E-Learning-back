@@ -16,9 +16,14 @@ public interface ProjetRepository extends JpaRepository<Projet,Long> {
    // List<Projet> findProjetOfDescription(@Param ("description") String description);
     //Projet findByprojet(Long idProjet);
    /// List<Probleme> findByProjets(Projet p);
+    @Query("SELECT DISTINCT p.projet FROM Phase p WHERE p.status = 'en cours'")
+    List<Projet> findProjetsWithPhasesStatusEnCours();
+
 
     @Query("SELECT DISTINCT p FROM Projet p LEFT JOIN FETCH p.problemes")
     List<Projet> findAllFetchProblemes();
+    @Query("SELECT DISTINCT p FROM Projet p LEFT JOIN FETCH p.phases")
+    List<Projet> findAllFetchPhases();
     List<Projet> findByStatusFalse();
     @Query("SELECT COUNT(p) FROM Projet p WHERE p.status = false")
     int countProjectsByStatusFalse();
@@ -39,5 +44,10 @@ public interface ProjetRepository extends JpaRepository<Projet,Long> {
             "WHERE pr.status = false AND p.status = false " +
             "GROUP BY p.idProjet")
     List<Object[]> obtenirNombreProblemesParProjet();
+    //List<Probleme> findByProjetAndStatus(Projet projet, boolean status);
+
+
+    @Query(value = "SELECT COUNT(*) FROM Projet")
+    int getNombreTotalProjets();
 
 }

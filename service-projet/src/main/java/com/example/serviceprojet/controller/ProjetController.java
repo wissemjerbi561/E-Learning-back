@@ -37,6 +37,13 @@ public class ProjetController {
     public ResponseEntity getAllProjets() {
         return ResponseEntity.ok(this.projetRepository.findAll());
     }
+    @GetMapping("/p")
+    public ResponseEntity getAllProjetss() {
+        return ResponseEntity.ok(this.projetRepository.findProjetsWithPhasesStatusEnCours());
+    }
+
+
+
 
     @PostMapping("/create")
     public ResponseEntity<Projet> saveProjet(@RequestBody Projet projet) {
@@ -53,6 +60,40 @@ public class ProjetController {
     public List<Projet> obtenirProjetsStatusFalse() {
         return projetService.obtenirProjetsStatusFalse();
     }
+    @GetMapping("/{idProjet}/phasesss")
+    public List<Phase> getPhasesWithStatusFalse(@PathVariable("idProjet") Long idProjet) {
+        return phaseRepository.findPhasesWithStatusEn_coursByProjetId(idProjet);
+    }
+    @GetMapping("/projets/pp")
+    public List<Projet> getListeProjetsAvecPhases() {
+        List<Projet> projets = projetRepository.findAll();
+        for (Projet projet : projets) {
+            List<Phase> phases = projet.getPhases();
+
+            if (!phases.isEmpty()) {
+                // Trier les phases par ordre décroissant des ID de phase
+                Collections.sort(phases, Comparator.comparingLong(Phase::getIdPhase).reversed());
+
+                // Récupérer la dernière phase après le tri
+                Phase dernierePhase = phases.get(0);
+                projet.setPhases(Collections.singletonList(dernierePhase));
+            } else {
+                projet.setPhases(null);
+            }
+        }
+
+        return projets;
+    }
+
+
+
+
+
+
+
+
+
+
 
 
     @PutMapping("/{idProjet}")
@@ -110,13 +151,12 @@ public class ProjetController {
     }
 // list of problems of the project where status is false ( non déactiver)
     @GetMapping("/{idProjet}/problemes")
-    public List<Probleme> getProblemesByProjet(@PathVariable Long idProjet) {
-        Projet projet = projetRepository.findById(idProjet)
-                .orElseThrow(() -> new NoSuchElementException("Projet non trouvé"));
-        List<Probleme> problemeList = problemeRepository.findByStatusFalse();
+        public List<Probleme> getProblemesWithStatusFalse(@PathVariable("idProjet") Long idProjet) {
+            return problemeRepository.findProblemesWithStatusFalseByProjetId(idProjet);
+        }
 
-        return problemeList;
-    }
+
+
     @GetMapping("/count/activeproject")
     public int countProjectsByStatus() {
         return projetRepository.countProjectsByStatusFalse();
@@ -130,6 +170,10 @@ public class ProjetController {
     @GetMapping("/count/notactiveproject")
     public int countnotactiveProjectsByStatus() {
         return projetRepository.countProjectsByStatusTrue();
+    }
+    @GetMapping("/count/nombretotalprojet")
+    public int countnombretotalprojet() {
+        return projetRepository.getNombreTotalProjets();
     }
     @GetMapping("listprojetavecphase")
     public List<Object[]> getProjetsWithTypePhases() {

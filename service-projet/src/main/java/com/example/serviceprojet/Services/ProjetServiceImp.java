@@ -6,6 +6,7 @@ import com.example.serviceprojet.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class ProjetServiceImp implements IProjetService{
     PhaseRepository phaseRepository;
     @Autowired
     TacheRepository tacheRepository;
+
     @Autowired
     TypePhaseRepository typePhaseRepository;
 
@@ -74,6 +76,7 @@ public class ProjetServiceImp implements IProjetService{
        //  projetRepository.save(projet);
 
     }
+
     public List<Projet> obtenirProjetsStatusFalse() {
         return projetRepository.findByStatusFalse();
     }

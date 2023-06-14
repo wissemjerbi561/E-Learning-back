@@ -49,8 +49,6 @@ public class ProblemeController {
     }
 
 
-
-
     @PostMapping("/upload")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
@@ -64,22 +62,24 @@ public class ProblemeController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
     }
+
     @PostMapping("/uploadfilee")
     public void uploadflow(@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
         problemeService.uploadFile(file);
 
 
-
     }
 
     @GetMapping
-    public ResponseEntity getAllProblems(){
+    public ResponseEntity getAllProblems() {
         return ResponseEntity.ok(this.problemeRepository.findAll());
     }
+
     @PostMapping("/createprobleme")
-    public ResponseEntity <Probleme>saveProbleme (@RequestBody Probleme probleme){
+    public ResponseEntity<Probleme> saveProbleme(@RequestBody Probleme probleme) {
         return ResponseEntity.ok(problemeRepository.save(probleme));
     }
+
     @GetMapping("/{idProbleme}")
     public Probleme getProblemeById(@PathVariable Long idProbleme) {
         return problemeRepository.findById(idProbleme).orElse(null);
@@ -91,8 +91,9 @@ public class ProblemeController {
         probleme1.setDateDebut(probleme.getDateDebut());
         probleme1.setDateFin(probleme.getDateFin());
         probleme1.setDescription(probleme.getDescription());
+        probleme1.setDure(probleme.getDure());
         Probleme updateprobleme = problemeRepository.save(probleme1);
-        return  ResponseEntity.ok(updateprobleme);
+        return ResponseEntity.ok(updateprobleme);
     }
 
     ///archiver
@@ -104,6 +105,7 @@ public class ProblemeController {
         Probleme updateprobleme = problemeRepository.save(probleme1);
         return ResponseEntity.ok(updateprobleme);
     }
+
     @GetMapping("/problemes/statusFalse")
     public List<Probleme> obtenirProblemesStatusFalse() {
         return problemeService.obtenirProblemesStatusFalse();
@@ -117,9 +119,9 @@ public class ProblemeController {
 
 
     @PostMapping("/add-probleme/{idProjet}")
-    public void ajouterEtaffecterListe(@RequestBody Probleme probleme,@PathVariable ("idProjet") Long idProjet) {
+    public void ajouterEtaffecterListe(@RequestBody Probleme probleme, @PathVariable("idProjet") Long idProjet) {
         //probleme.setDescription( BadWordFilter.getCensoredText(comment.getContents() ));
-        problemeService.ajouterEtaffecterListeProbleme(probleme,idProjet);
+        problemeService.ajouterEtaffecterListeProbleme(probleme, idProjet);
     }
    /* @PostMapping("/add-probleme/{idProjet}")
     public void ajouterEtaffecterListe(@RequestBody Probleme probleme,@PathVariable ("idProjet") Long idProjet, @RequestParam("file") MultipartFile file) {
@@ -135,19 +137,20 @@ public class ProblemeController {
         problemeService.ajouterEtaffecterListeProbleme(probleme,idProjet);
     }*/
 
-   // @GetMapping("/FindProblemeByProjet/{idProjet}")
-   // @ResponseBody
-   // List<Probleme> retrieveProblemesByProjet(@PathVariable Long idProjet) {
+    // @GetMapping("/FindProblemeByProjet/{idProjet}")
+    // @ResponseBody
+    // List<Probleme> retrieveProblemesByProjet(@PathVariable Long idProjet) {
     //    return problemeService.retrieveProblemesByProjet(idProjet);
-   // }
-   @GetMapping("/problemes/{idProjet}")
-   public List<Probleme> getProblemes(@PathVariable("idProjet") Long idProjet) {
-       Optional<Projet> projetOptional = projetRepository.findById(idProjet);
-       if (projetOptional.isPresent()) {
-           return new ArrayList<>(projetOptional.get().getProblemes());
-       }
-       return new ArrayList<>();
-   }
+    // }
+    @GetMapping("/problemes/{idProjet}")
+    public List<Probleme> getProblemes(@PathVariable("idProjet") Long idProjet) {
+        Optional<Projet> projetOptional = projetRepository.findById(idProjet);
+        if (projetOptional.isPresent()) {
+            return new ArrayList<>(projetOptional.get().getProblemes());
+        }
+        return new ArrayList<>();
+    }
+
     @GetMapping("/listeProblemes/{idProjet}")
     @ResponseBody
     List<Probleme> getProblemeByProjet(@PathVariable("idProjet") Long idProjet) {
@@ -155,13 +158,9 @@ public class ProblemeController {
     }
 
     @GetMapping("/{idProbleme}/activites")
-    public List<Activite> getActivitesByProbleme(@PathVariable Long idProbleme) {
-        Probleme probleme = problemeRepository.findById(idProbleme)
-                .orElseThrow(() -> new NoSuchElementException("probleme non trouvé"));
-        List<Activite> activiteList = activiteRepository.findByStatusFalse();
-
-        return activiteList;
+    public List<Activite> getActivitesWithStatusFalse(@PathVariable("idProbleme") Long idProbleme) {
+        return activiteRepository.findActivitesWithStatusFalseByProblemeId(idProbleme);
     }
 
-    }
+}
 
