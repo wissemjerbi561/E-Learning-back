@@ -85,7 +85,7 @@ public static String generateRandomPassword() {
     }
 
     return sb.toString();
-}
+    }
     public ResponseEntity createUser(UserDto user) {
     Role role=roleRepository.findByName(user.getRole()).get();
         System.out.println(role);

@@ -19,10 +19,6 @@ spring:
          uri: http://localhost:8082
          predicates:
            - Path=/api/keycloak/**
-       - id: authentification-service
-         uri: http://localhost:8084
-         predicates:
-           - Path=/authentification/**
 
 
 

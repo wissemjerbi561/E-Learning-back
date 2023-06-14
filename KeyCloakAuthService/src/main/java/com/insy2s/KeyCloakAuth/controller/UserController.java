@@ -40,7 +40,7 @@ public class UserController {
 //    {
 //        return userService.test( );
 //    }
-    @PostMapping(value = "/")
+    @PostMapping(value = "/signup")
     ResponseEntity createUser(@RequestBody UserDto user){
 
         return userService.createUser( user);
