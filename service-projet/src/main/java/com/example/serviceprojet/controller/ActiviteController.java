@@ -16,7 +16,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/Activity")
+@RequestMapping("/project/Activity")
 public class ActiviteController {
     @Autowired
     ActiviteRepository activiteRepository;

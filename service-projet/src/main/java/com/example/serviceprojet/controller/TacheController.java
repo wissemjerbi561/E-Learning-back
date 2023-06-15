@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/tache")
+@RequestMapping("/project/tache")
 public class TacheController {
 
 

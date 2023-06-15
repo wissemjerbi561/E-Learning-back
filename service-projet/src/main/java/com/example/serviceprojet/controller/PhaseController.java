@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("/phase")
+@RequestMapping("/project/phase")
 @CrossOrigin(origins = "*")
 
 public class PhaseController {
