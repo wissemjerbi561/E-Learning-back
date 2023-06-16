@@ -7,6 +7,10 @@ import com.example.serviceprojet.repository.ProblemeRepository;
 import com.example.serviceprojet.repository.ProjetRepository;
 import com.example.serviceprojet.repository.TypePhaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -65,9 +69,12 @@ public class ProjetController {
         return phaseRepository.findPhasesWithStatusEn_coursByProjetId(idProjet);
     }
     @GetMapping("/projets/pp")
-    public List<Projet> getListeProjetsAvecPhases() {
-        List<Projet> projets = projetRepository.findAll();
-        for (Projet projet : projets) {
+    public Page<Projet> getListeProjetsAvecPhases(@RequestParam(defaultValue = "0") int page,
+                                                  @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("idProjet").descending());
+        Page<Projet> projets = projetRepository.findAll(pageable);
+
+        projets.forEach(projet -> {
             List<Phase> phases = projet.getPhases();
 
             if (!phases.isEmpty()) {
@@ -80,11 +87,10 @@ public class ProjetController {
             } else {
                 projet.setPhases(null);
             }
-        }
+        });
 
         return projets;
     }
-
 
 
 
