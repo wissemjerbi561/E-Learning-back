@@ -1,6 +1,5 @@
 package com.paiement.Entities;
 
-import com.paiement.Models.Member;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -34,12 +33,10 @@ public class Payment implements Serializable {
     private String successUrl;
     @Transient
     private String cancelUrl;
-
-    private String email;
-
-
+    private String customerId;
+    private String sessionId;
     @OneToOne
     private Cart cart;
 
-    @Transient private Member member;
+    //@Transient private Member member;
 }
