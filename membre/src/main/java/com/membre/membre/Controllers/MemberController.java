@@ -100,6 +100,19 @@ public class MemberController {
             memberService.saveMemberToDB(file,firstName,lastName,email,password,finalNote,gitLink,driveLink);
 
         }
+    @GetMapping
+    public List<Member> getTutorMembers() {
+        return memberService.getTutorMembers();
+    }
+    @GetMapping("apprenant")
+    public List<Member> getApprenantMembers() {
+        return memberService.getApprenantMembers();
+    }
+
+    @GetMapping("/count/apprenant")
+    public long countMembersWithPositionApprenant() {
+        return memberService.countMembersWithPositionApprenant();
+    }
     }
 
 
