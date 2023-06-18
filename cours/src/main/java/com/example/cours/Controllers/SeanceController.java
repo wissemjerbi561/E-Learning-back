@@ -25,10 +25,10 @@ public class SeanceController {
     public List<Seance> affichertouts(){
         return seanceService.RetrieveAllse();
     }
-    @PutMapping("/affectersc/{ids}/{idcr}")
+    /*@PutMapping("/affectersc/{ids}/{idcr}")
     public void affecterseance(@PathVariable Long ids,@PathVariable Long idcr){
         seanceService.Affectse(ids, idcr);
-    }
+    }*/
     @DeleteMapping("/deletesc/{ids}")
     public void supprimersc(@PathVariable Long ids){
         seanceService.deleteSc(ids);

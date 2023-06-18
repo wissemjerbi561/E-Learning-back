@@ -25,10 +25,17 @@ public class Session {
     @Temporal(TemporalType.DATE)
     private Date dateFin;
     private boolean active;
-
+    private Integer capacite;
 @ManyToMany
     Set<Cours> courss;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "sessionsc")
 
+    private Set<Seance> seances;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "session")
+
+    private Set<Inscription> inscriptions;
 
 
 }
