@@ -209,6 +209,10 @@ public class ProjetController {
 
     @PostMapping("/{idProjet}/affecterPhase")
     public void affecterPhaseProjet(@PathVariable Long idProjet) {
+        Projet projet1 = projetRepository.findById(idProjet).orElseThrow(() -> new ResourceNotFoundException("projet not exist with id" + idProjet));
+
+        projet1.setDemarre(true);
+        projetRepository.save(projet1);
 
         projetService.affecterPhaseProjet(idProjet);
 

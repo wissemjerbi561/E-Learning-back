@@ -9,7 +9,7 @@ public interface SeanceService {
     public Seance savese(Seance s);
     public Seance RetrieveSe(Long idse);
     public List<Seance> RetrieveAllse();
-    public void Affectse(Long ids,Long idcr);
+
     public void deleteSc(Long ids);
     public Seance saveAffectSc(Seance sc);
 }
