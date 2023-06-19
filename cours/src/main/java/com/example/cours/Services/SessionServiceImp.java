@@ -66,7 +66,7 @@ sessionRepo.deleteById(idses);
         Session ses=sessionRepo.findById(idses).get();
         Cours cr=coursRepo.findById(idcr).get();
         ses.getCourss().add(cr);
-        //sessionRepo.save(ses);
+        sessionRepo.save(ses);
 
     }
 }
