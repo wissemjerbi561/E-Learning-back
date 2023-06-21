@@ -1,6 +1,5 @@
 package com.membre.membre.Services;
 
-import com.membre.membre.Entities.Member;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
