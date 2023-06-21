@@ -219,6 +219,11 @@ public class ProjetController {
 
     }
 
+    @GetMapping("/search/{description}")
+    public List<Projet> searchProjectsByDescription(@PathVariable String description) {
+        return projetRepository.findByDescriptionContainingIgnoreCase(description);
+    }
+
     @PostMapping("/{idProjet}/affecterPhase2")
     public void affecterdeuxiemePhaseProjet(@PathVariable Long idProjet) {
 
