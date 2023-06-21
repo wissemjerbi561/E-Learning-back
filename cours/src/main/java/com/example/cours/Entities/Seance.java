@@ -1,6 +1,8 @@
 package com.example.cours.Entities;
 
+import com.example.cours.CustomDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,11 +19,14 @@ public class Seance {
     private Long contenu;
     @Temporal(TemporalType.DATE)
     private Date dateDebut;
+    @JsonDeserialize(using = CustomDateDeserializer.class)
+    private Date heureReunion;
     @Temporal(TemporalType.DATE)
     private Date dateFin;
+    private String lienGoogleMeet;
     @Transient
-    private Long idCours;
+    private Long idSession;
     @JsonBackReference
     @ManyToOne
-    private Cours courssc;
+    private Session sessionsc;
 }

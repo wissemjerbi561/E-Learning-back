@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.List;
 
 @Service
 public class MemberServiceImp implements MemberService {
@@ -45,5 +46,17 @@ public class MemberServiceImp implements MemberService {
     }catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    public List<Member> getTutorMembers() {
+        return memberRepository.findByPositionName("Tuteur Professionnel");
+    }
+    public List<Member> getApprenantMembers() {
+        return memberRepository.findByPositionName("Apprenant");
+    }
+
+    public long countMembersWithPositionApprenant() {
+        return memberRepository.countByPositionNameApprenant();
     }
 }

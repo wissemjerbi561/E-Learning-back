@@ -26,6 +26,8 @@ import java.util.Optional;
 public class KeyCloakAuthServiceApplication {
 @Autowired
 private RoleRepository roleRepository;
+@Autowired
+private UserRepository userRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(KeyCloakAuthServiceApplication.class, args);
@@ -40,6 +42,14 @@ private RoleRepository roleRepository;
 			Role consultant = new Role();
 			consultant.setName("CONSULTANT");
 			saveRole(consultant);
+
+			User user = new User();
+			user.setUsername("iheb");
+			user.setEmail("iheb@gmail.com");
+			user.setPassword("iheb");
+			user.setRoles(roleRepository.findAll());
+			saveUser(user);
+
 
 		};}
 
@@ -58,7 +68,12 @@ private RoleRepository roleRepository;
 		}
 	}
 
+	public void saveUser(User user){
+		userRepository.findByUsername("iheb");
+		userRepository.save(user);
+		System.out.println(user+"user");
 
+	}
 }
 
 
