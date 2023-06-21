@@ -22,13 +22,14 @@ public class RoleController {
     {
         return "hello";
     }
-    @GetMapping("/")
+    @GetMapping("/getAll")
     List<Role> getRole( )
     {
         return roleService.getRoles( );
     }
-    @PostMapping("/")
+    @PostMapping("/create")
     ResponseEntity create(Role role )
+
     {
         return roleService.createUser( role);
     }

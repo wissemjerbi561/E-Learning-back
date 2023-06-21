@@ -33,7 +33,7 @@ public  class SecurityConfig   {
 	@Bean
 	protected DefaultSecurityFilterChain configure(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests()
-				.requestMatchers("/api/keycloak/auth/login")
+				.requestMatchers("/api/keycloak/auth/login","/api/keycloak/users/signup","/api/keycloak/users/create")
 				.permitAll()
 				.anyRequest()
 				.authenticated();
