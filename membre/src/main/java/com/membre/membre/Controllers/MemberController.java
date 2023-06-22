@@ -65,7 +65,11 @@ public class MemberController {
 
         return memberRepository.findById(memberId).orElse(null);
     }
+    @GetMapping("/user/{userId}")
+    public Member getMemberByUserId(@PathVariable int userId) {
 
+        return memberRepository.findMemberByUserId(userId);
+    }
     @PutMapping("/update/{id}")
     public void updateMember(@PathVariable Long id, @RequestBody Member member) {
         Member member1 = memberRepository.findById(id).orElse(null);

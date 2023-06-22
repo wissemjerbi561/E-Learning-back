@@ -23,7 +23,8 @@ import java.util.List;
 @Table(name="users")
 public class User   {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Size(max = 50)
     @Column(unique = true)
     private  String username;
