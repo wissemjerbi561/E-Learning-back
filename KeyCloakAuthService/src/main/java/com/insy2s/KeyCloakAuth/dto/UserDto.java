@@ -12,7 +12,7 @@ import java.util.Collection;
 @Data
 public class UserDto {
     @Id
-    private String id;
+    private Long id;
     private  String username;
     private String email;
     private String firstname;
