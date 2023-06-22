@@ -16,6 +16,8 @@ public interface ProjetRepository extends JpaRepository<Projet,Long> {
    // List<Projet> findProjetOfDescription(@Param ("description") String description);
     //Projet findByprojet(Long idProjet);
    /// List<Probleme> findByProjets(Projet p);
+    List<Projet> findByDescriptionContainingIgnoreCase(String description);
+
     @Query("SELECT DISTINCT p.projet FROM Phase p WHERE p.status = 'en cours'")
     List<Projet> findProjetsWithPhasesStatusEnCours();
 

@@ -3,17 +3,9 @@ package com.insy2s.KeyCloakAuth.controller;
 import com.insy2s.KeyCloakAuth.dto.UserDto;
 import com.insy2s.KeyCloakAuth.model.User;
 import com.insy2s.KeyCloakAuth.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
-import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.ws.rs.Consumes;
-import java.awt.*;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/keycloak/users")
@@ -45,13 +37,19 @@ public class UserController {
 
         return userService.createUser( user);
     }
+
+    @PostMapping(value = "/create")
+    User saveUser(@RequestBody User user){
+
+        return userService.saveUser(user);
+    }
     @PutMapping(value = "/")
     ResponseEntity desActiveUser(@RequestParam String username){
 
         return userService.desActiveUser( username);
     }
     @DeleteMapping(value = "/{id}")
-    ResponseEntity deleteUser(@PathVariable String id){
+    ResponseEntity deleteUser(@PathVariable int id){
 
         return userService.deleteUser( id);
     }

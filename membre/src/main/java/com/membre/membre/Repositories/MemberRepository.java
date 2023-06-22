@@ -17,7 +17,9 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
     @Query("SELECT COUNT(m) FROM Member m JOIN m.positions p WHERE p.name = 'Apprenant'")
     long countByPositionNameApprenant();
 
-    Member findByUserId(Long userId);
+     Member findMemberByUserId(@Param("id") int userId);
 
-    List<Member> findAllByUserId(Long userId);
+
+
+
 }

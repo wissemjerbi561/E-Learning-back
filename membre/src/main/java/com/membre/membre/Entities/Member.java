@@ -18,6 +18,10 @@ public class Member implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
+
+    private int userId;
+    private String username;
+
     @Lob
     //@Column(columnDefinition = "MEDIUMBLOB")
     private String image;
