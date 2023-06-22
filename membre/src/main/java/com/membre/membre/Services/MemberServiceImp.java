@@ -52,6 +52,9 @@ public class MemberServiceImp implements MemberService {
     public List<Member> getTutorMembers() {
         return memberRepository.findByPositionName("Tuteur Professionnel");
     }
+    public List<Member> getTuteurAcademique() {
+        return memberRepository.findByPositionName("Tuteur Academique");
+    }
     public List<Member> getApprenantMembers() {
         return memberRepository.findByPositionName("Apprenant");
     }
