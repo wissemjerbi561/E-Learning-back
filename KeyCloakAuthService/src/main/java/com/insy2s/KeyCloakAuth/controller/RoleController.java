@@ -25,7 +25,13 @@ public class RoleController {
     @GetMapping("/getAll")
     List<Role> getRole( )
     {
-        return roleService.getRoles( );
+        return roleService.getRoles();
+    }
+
+    @GetMapping("/getAllRoles")
+    List<Role> getAllRoles( )
+    {
+        return roleService.getAllRoles();
     }
     @PostMapping("/create")
     ResponseEntity create(Role role )

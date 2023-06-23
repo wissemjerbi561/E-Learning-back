@@ -32,6 +32,13 @@ public class AffectaionProjet {
 
 
     }
+    @PostMapping("/addtuteuracademique")
+
+    public void  ajouterAffectationtuteuracademique(@RequestBody AffectationProjet affectationProjet){
+        affectationProjetService.ajouterAffectationtuteuracademique(affectationProjet);
+
+
+    }
 
 
 
