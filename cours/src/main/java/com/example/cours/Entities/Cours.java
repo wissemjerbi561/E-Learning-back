@@ -34,10 +34,7 @@ public class Cours {
     @OneToMany(mappedBy = "coursch")
 
     private Set<Chapitre> chapitres;
-    @JsonManagedReference
-    @OneToMany(mappedBy = "courssc")
 
-    private Set<Seance> seances;
     @JsonManagedReference
     @OneToMany(mappedBy = "courstr")
     private Set<Tarif> tarifs;
