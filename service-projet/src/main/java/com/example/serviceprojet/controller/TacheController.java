@@ -12,6 +12,8 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/project/tache")
@@ -71,5 +73,10 @@ public class TacheController {
     @PostMapping("/add-tache/{idActivite}")
     public void ajouterTahe(@RequestBody Tache tache, @PathVariable ("idActivite") Long idActivite) {
         tacheService.ajouterTache(tache, idActivite);
+    }
+
+    @GetMapping("/withProjet")
+    public List<Tache> getTachesWithProjet() {
+        return tacheService.getTachesWithProjet();
     }
 }

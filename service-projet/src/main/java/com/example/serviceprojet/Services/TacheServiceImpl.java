@@ -7,6 +7,8 @@ import com.example.serviceprojet.repository.TacheRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TacheServiceImpl implements  ITacheService {
     @Autowired
@@ -15,6 +17,7 @@ public class TacheServiceImpl implements  ITacheService {
     TacheRepository tacheRepository;
     @Autowired
     ActiviteRepository activiteRepository;
+
 
 
     @Override
@@ -29,6 +32,9 @@ public class TacheServiceImpl implements  ITacheService {
         tache.setActivite(activite);
         tacheRepository.save(tache);
 
+    }
+    public List<Tache> getTachesWithProjet() {
+        return tacheRepository.findAllWithProjet();
     }
 
 }

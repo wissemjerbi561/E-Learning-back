@@ -2,6 +2,7 @@ package com.insy2s.KeyCloakAuth.controller;
 
 import com.insy2s.KeyCloakAuth.dto.UserDto;
 import com.insy2s.KeyCloakAuth.model.User;
+import com.insy2s.KeyCloakAuth.service.KeycloakService;
 import com.insy2s.KeyCloakAuth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,18 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    KeycloakService keycloakService;
     @GetMapping("/test")
     String test( )
     {
         return "hello";
     }
+
+
+
+
     @GetMapping("/find")
     ResponseEntity<User> getUser(@RequestParam String username )
     {
@@ -39,9 +47,9 @@ public class UserController {
     }
 
     @PostMapping(value = "/create")
-    User saveUser(@RequestBody User user){
+    ResponseEntity saveUser(@RequestBody UserDto user){
 
-        return userService.saveUser(user);
+        return keycloakService.createUser(user);
     }
     @PutMapping(value = "/")
     ResponseEntity desActiveUser(@RequestParam String username){

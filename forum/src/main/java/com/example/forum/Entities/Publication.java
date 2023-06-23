@@ -2,6 +2,7 @@ package com.example.forum.Entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,6 +38,9 @@ public class Publication {
     }
 
     private int likes;
+
+    @ElementCollection
+    private List<Integer> likedBy = new ArrayList<>();
 
 
     public Publication() {
@@ -107,6 +111,14 @@ public class Publication {
 
     public void setLikes(int likes) {
         this.likes = likes;
+    }
+
+    public void addLikedBy(int userId) {
+        likedBy.add(userId);
+    }
+
+    public boolean isLikedBy(int userId) {
+        return likedBy.contains(userId);
     }
 
 

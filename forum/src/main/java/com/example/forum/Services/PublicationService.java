@@ -8,6 +8,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,6 +72,23 @@ public class PublicationService {
             return null;
         }
     }
+
+
+
+
+    public ResponseEntity<Publication> unlikePublication( Long id) {
+        Publication publication = publicationRepository.findById(id).orElse(null);
+        if (publication != null) {
+            if (publication.getLikes() > 0) {
+                publication.setLikes(publication.getLikes() - 1);
+            }
+            Publication updatedPublication = publicationRepository.save(publication);
+            return new ResponseEntity<>(updatedPublication, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 
     public List<Publication> getByParent(Long parentId){
