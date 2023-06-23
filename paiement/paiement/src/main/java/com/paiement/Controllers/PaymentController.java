@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value= "/payment/payment")
 @CrossOrigin(origins = "http://localhost:4200/")
@@ -26,9 +28,13 @@ public class PaymentController {
         return  ResponseEntity.ok(this.paymentRepository.findAll());
     }
     @GetMapping("/{id}")
-    public Payment getPaymentById(@PathVariable Long id) {
-        return paymentRepository.findById(id).orElse(null);
+    public Payment getPaymentById(@PathVariable Long id) { return paymentRepository.findById(id).orElse(null);}
+
+    @GetMapping("/parMembre/{memberId}")
+    public List<Payment> getPaymentByidUser(@PathVariable Integer memberId) {
+        return paymentRepository.findPaymentByMemberId(memberId);
     }
+
     @PutMapping("/update/{id}")
     public void updatePayment(@PathVariable Long id, @RequestBody Payment payment) {
         Payment payment1 = paymentRepository.findById(id).orElse(null);

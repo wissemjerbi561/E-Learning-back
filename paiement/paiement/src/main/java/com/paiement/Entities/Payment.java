@@ -38,6 +38,7 @@ public class Payment implements Serializable {
     @OneToOne
     private Cart cart;
 
-
-    //@Transient private Member member;
+    private Integer memberId;
+    private String firstName;
+    private String lastName;
 }

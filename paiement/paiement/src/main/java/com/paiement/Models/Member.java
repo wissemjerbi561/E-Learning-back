@@ -1,4 +1,4 @@
-package com.paiement.Entities;
+package com.paiement.Models;
 
 import com.paiement.Entities.Payment;
 import jakarta.persistence.OneToMany;

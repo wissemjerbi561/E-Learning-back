@@ -86,6 +86,9 @@ public class StripeController {
         payment.setAmount(payment.getAmount());
         payment.setCurrency(payment.getCurrency());
         payment.setCustomerId(customer.getId());
+        payment.setMemberId(payment.getMemberId());
+        payment.setFirstName(payment.getFirstName());
+        payment.setLastName(payment.getLastName());
         currentPayment = payment;
         return gson.toJson(responseData);
     }
@@ -104,6 +107,7 @@ public class StripeController {
         }
 
     }
+
 
 }
 
