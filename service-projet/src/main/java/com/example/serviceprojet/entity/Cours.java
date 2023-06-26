@@ -18,4 +18,15 @@ public class Cours {
     private long idCours;
     private String nom;
     private String description;
+    private Integer memberId;
+
+
+    private int rating;
+
+
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
 }

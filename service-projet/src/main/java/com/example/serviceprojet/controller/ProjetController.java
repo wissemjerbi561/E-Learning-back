@@ -2,10 +2,7 @@ package com.example.serviceprojet.controller;
 
 import com.example.serviceprojet.Services.ProjetServiceImp;
 import com.example.serviceprojet.entity.*;
-import com.example.serviceprojet.repository.PhaseRepository;
-import com.example.serviceprojet.repository.ProblemeRepository;
-import com.example.serviceprojet.repository.ProjetRepository;
-import com.example.serviceprojet.repository.TypePhaseRepository;
+import com.example.serviceprojet.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +18,9 @@ import java.util.*;
 @CrossOrigin(origins = "*")
 @RequestMapping("/project/projet")
 public class ProjetController {
+
+    @Autowired
+    CoursRepository coursRepository;
     @Autowired
     ProjetRepository projetRepository;
     @Autowired
@@ -187,7 +187,12 @@ public class ProjetController {
 
 
 
+    }
 
+
+    @GetMapping("/count/{memberId}")
+    public int countProjetsByMember(@PathVariable int memberId) {
+        return projetRepository.countProjetsByMemberId(memberId);
     }
 
 
@@ -218,7 +223,10 @@ public class ProjetController {
 
 
     }
-
+    @GetMapping("/parMembre/{memberId}")
+    public List<Projet> getProjetByidUser(@PathVariable Integer memberId) {
+        return projetRepository.findProjetByMemberId(memberId);
+    }
     @GetMapping("/search/{description}")
     public List<Projet> searchProjectsByDescription(@PathVariable String description) {
         return projetRepository.findByDescriptionContainingIgnoreCase(description);
@@ -303,7 +311,20 @@ public class ProjetController {
         return projetService.getAffectationTachesnonaffectesDuProjet(idProjet);
     }
 
+    @GetMapping("/parMembree/{memberId}")
+    public List<Cours> getCoursByMemberId(@PathVariable Integer memberId) {
+        return coursRepository.findCoursByMemberId(memberId);
+    }
 
-
-
+    @PostMapping("/rateCourse/{courseId}")
+    public void rateCourse(@PathVariable("courseId") Long courseId, @RequestParam("rating") int rating) {
+        Optional<Cours> optionalCours = coursRepository.findById(courseId);
+        if (optionalCours.isPresent()) {
+            Cours cours = optionalCours.get();
+            cours.setRating(rating);
+            coursRepository.save(cours);
+        } else {
+            //  le cas où le cours n'existe pas
+        }
+    }
 }
