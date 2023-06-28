@@ -22,8 +22,8 @@ public class Projet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idProjet;
     private String description;
-    private Date DateDebut;
-    private Date DateFin;
+  //  private Date DateDebut;
+   // private Date DateFin;
     private Long idPhaseActuelle;
     private boolean demarre = false;
     private boolean status = false;

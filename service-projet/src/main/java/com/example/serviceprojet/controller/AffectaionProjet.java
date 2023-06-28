@@ -39,6 +39,21 @@ public class AffectaionProjet {
 
 
     }
+    @PostMapping("/addapprenantverification")
+
+    public void ajouterAffectationApprenantVerification(@RequestBody AffectationProjet affectationProjet){
+        affectationProjetService.ajouterAffectationApprenantVerification(affectationProjet);
+
+
+    }
+
+    @PostMapping("/addapprenantaide")
+
+    public void ajouterAffectationApprenantDaide(@RequestBody AffectationProjet affectationProjet){
+        affectationProjetService.ajouterAffectationApprenantDaide(affectationProjet);
+
+
+    }
 
 
 

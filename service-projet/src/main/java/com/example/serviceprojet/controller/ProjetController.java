@@ -105,8 +105,8 @@ public class ProjetController {
     @PutMapping("/{idProjet}")
     public ResponseEntity<Projet> updateprojet(@PathVariable Long idProjet, @RequestBody Projet projet) {
         Projet projet1 = projetRepository.findById(idProjet).orElseThrow(() -> new ResourceNotFoundException("projet not exist with id" + idProjet));
-        projet1.setDateDebut(projet.getDateDebut());
-        projet1.setDateFin(projet.getDateFin());
+       // projet1.setDateDebut(projet.getDateDebut());
+       // projet1.setDateFin(projet.getDateFin());
         projet1.setDescription(projet.getDescription());
         Projet updateprojet = projetRepository.save(projet1);
         return ResponseEntity.ok(updateprojet);
@@ -294,6 +294,10 @@ public class ProjetController {
     @GetMapping("/{idProjet}/affectationtaches")
     public List<AffectationTache> getAfeectationTachesduProjet(@PathVariable Long idProjet) {
         return projetService.getAffectationTachesDuProjet(idProjet);
+    }
+    @GetMapping("/{idProjet}/membersprojet")
+    public List<AffectationProjet> getMembersduProjet(@PathVariable Long idProjet) {
+        return projetService.getMembersDuProjet(idProjet);
     }
 
 
