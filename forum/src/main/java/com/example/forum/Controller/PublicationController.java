@@ -83,6 +83,27 @@ public class PublicationController {
         }
     }
 
+
+
+
+
+    @PostMapping("/{id}/unlike")
+    public ResponseEntity<Publication> unlikePublication(@PathVariable Long id) {
+        Publication publication = publicationRepository.findById(id).orElse(null);
+        if (publication != null) {
+            if (publication.getLikes() > 0) {
+                publication.setLikes(publication.getLikes() - 1);
+            }
+            Publication updatedPublication = publicationRepository.save(publication);
+            return new ResponseEntity<>(updatedPublication, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
+
     @GetMapping("/byParent/{parentId}")
 
     public List<Publication> getByParent(@PathVariable Long parentId){

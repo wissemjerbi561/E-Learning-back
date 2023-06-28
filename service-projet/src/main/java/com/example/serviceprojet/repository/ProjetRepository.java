@@ -17,7 +17,7 @@ public interface ProjetRepository extends JpaRepository<Projet,Long> {
     //Projet findByprojet(Long idProjet);
    /// List<Probleme> findByProjets(Projet p);
     List<Projet> findByDescriptionContainingIgnoreCase(String description);
-
+    List <Projet> findProjetByMemberId(Integer memberId);
     @Query("SELECT DISTINCT p.projet FROM Phase p WHERE p.status = 'en cours'")
     List<Projet> findProjetsWithPhasesStatusEnCours();
 
@@ -51,5 +51,12 @@ public interface ProjetRepository extends JpaRepository<Projet,Long> {
 
     @Query(value = "SELECT COUNT(*) FROM Projet")
     int getNombreTotalProjets();
+
+    int countProjetsByMemberId(int memberId);
+
+
+
+
+
 
 }

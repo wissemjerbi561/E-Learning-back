@@ -27,7 +27,7 @@ public class Projet {
     private Long idPhaseActuelle;
     private boolean demarre = false;
     private boolean status = false;
-
+    private Integer memberId;
     @OneToMany(mappedBy = "projet", cascade = CascadeType.ALL)
     private List<Phase> phases = new ArrayList<>();
 

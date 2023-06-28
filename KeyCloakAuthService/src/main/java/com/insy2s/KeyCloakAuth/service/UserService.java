@@ -46,6 +46,8 @@ public class UserService {
     private String clientId;
     @Value("${uri-user}")
     private String issueUrlUser;
+    @Value("${spring.security.oauth2.resourceserver.jwt.roles}")
+    private String rolesKey;
 //public List<UserRepresentation> test(){
 //
 //    Keycloak keycloak = KeycloakBuilder.builder()
@@ -83,6 +85,9 @@ public static String generateRandomPassword() {
     return sb.toString();
     }
         public ResponseEntity createUser(UserDto user) {
+
+            System.out.println("rolesKey" +rolesKey);
+
             String randomPassword = generateRandomPassword();
             System.out.println("password"+randomPassword);
             user.setPassword(randomPassword);
@@ -111,6 +116,7 @@ public static String generateRandomPassword() {
             userRepresentation.setUsername(user.getUsername());
             userRepresentation.setCredentials(Collections.singletonList(getPasswordCredentials(user.getPassword())));
             userRepresentation.setEnabled(true);
+            userRepresentation.setRealmRoles(Collections.singletonList(user.getRole()));
             userRepresentation.setEmailVerified(false);
             HttpEntity<UserRepresentation> request = new HttpEntity<>(userRepresentation, headersuser);
 

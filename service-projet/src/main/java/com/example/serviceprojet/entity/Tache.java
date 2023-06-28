@@ -31,4 +31,8 @@ public class Tache {
     @ManyToOne
     @JsonIgnore
     private Activite activite;
+
+    @ManyToOne
+    @JoinColumn(name = "projet_id")
+    private Projet projet;
 }
