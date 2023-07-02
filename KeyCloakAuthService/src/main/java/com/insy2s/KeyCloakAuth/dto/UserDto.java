@@ -9,6 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
 @Data
 public class UserDto {
     @Id
@@ -21,6 +23,6 @@ public class UserDto {
 
     private  String password;
     private  boolean enabled=true;
-    private String role;
+    private Collection<Role> roles= new ArrayList();
 
 }
