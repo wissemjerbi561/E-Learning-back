@@ -121,7 +121,9 @@ public class MemberController {
     public long countMembersWithPositionApprenant() {
         return memberService.countMembersWithPositionApprenant();
     }
-    }
+
+
+}
 
 
 

@@ -43,9 +43,10 @@ public class Member implements Serializable {
     private List<Position> positions=new ArrayList<>();
 
 
-
-
-
-
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "membre_badge",
+            joinColumns = @JoinColumn(name = "membre_id"),
+            inverseJoinColumns = @JoinColumn(name = "badge_id"))
+    private Set<Badge> badges = new HashSet<>();
 
 }
