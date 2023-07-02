@@ -18,10 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class RoleService {
@@ -79,16 +76,28 @@ public List<Role>getRoles(){
         if (responseRole.getStatusCode().is2xxSuccessful()) {
             List<RoleRepresentation> roleRepresentations = responseRole.getBody();
             List<Role> roles = new ArrayList<>();
+            Set<String> processedRoleNames = new HashSet<>();
 
             if (roleRepresentations != null) {
                 for (RoleRepresentation roleRepresentation : roleRepresentations) {
                     // Convert RoleRepresentation to Role
                     Role role = new Role();
+
                     role.setIdkeyCloak(roleRepresentation.getId());
                     role.setName(roleRepresentation.getName());
-                    roleRepository.save(role);
-                    // Set other properties as needed
-                    roles.add(role);
+
+
+                    // Check if role with the same name has already been processed
+                    if (!processedRoleNames.contains(role.getName())) {
+                        Role existingRole = roleRepository.findByName(role.getName()).orElse(null);
+                        if (existingRole == null) {
+                            roleRepository.save(role);
+                        }
+                        processedRoleNames.add(role.getName());
+                        roles.add(role);
+                    }
+
+
                 }
             }
 
