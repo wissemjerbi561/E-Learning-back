@@ -20,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.security.SecureRandom;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -43,6 +44,8 @@ public class UserService {
     private String clientId;
     @Value("${uri-user}")
     private String issueUrlUser;
+    @Value("${spring.security.oauth2.resourceserver.jwt.roles}")
+    private String rolesKey;
 //public List<UserRepresentation> test(){
 //
 //    Keycloak keycloak = KeycloakBuilder.builder()
@@ -80,21 +83,99 @@ public static String generateRandomPassword() {
     return sb.toString();
     }
         public ResponseEntity createUser(UserDto user) {
-        Role role=roleRepository.findByName(user.getRole()).get();
-            System.out.println(role);
-            System.out.println(user.getRole());
-            User userSaved = new User();
-             Collection<Role> roles = new ArrayList<>();
-            roles.add(role);
+
+//            System.out.println("rolesKey" +rolesKey);
+//
+//            String randomPassword = generateRandomPassword();
+//            System.out.println("password"+randomPassword);
+//            user.setPassword(randomPassword);
+//            LoginRequest loginRequest=new LoginRequest("insy2s","insy2s");
+//            ResponseEntity <LoginResponse>token=loginService.login(loginRequest);
+//
+//            HttpHeaders headersuser = new HttpHeaders();
+//            headersuser.setBearerAuth(token.getBody().getAccess_token());
+//
+//        Optional<Role> role=roleRepository.findByName(user.getRole().toString());
+//            Collection<Role> roles = new ArrayList<>();
+//            List<String> userRep= new ArrayList<>();
+//        if(role != null && role.isPresent() ){
+//
+//            roles.add(role.get());
+//
+//            userRep= Collections.singletonList(String.valueOf(roles));
+//        }
+//
+//            User userSaved = new User();
+//
+//
+//
+//
+//            UserRepresentation userRepresentation = new UserRepresentation();
+//            userRepresentation.setFirstName(user.getFirstname());
+//            userRepresentation.setLastName(user.getLastname());
+//            userRepresentation.setEmail(user.getEmail());
+//            userRepresentation.setUsername(user.getUsername());
+//            userRepresentation.setCredentials(Collections.singletonList(getPasswordCredentials(user.getPassword())));
+//            userRepresentation.setEnabled(true);
+//            //userRepresentation.setRealmRoles(userRep);
+//            userRepresentation.setEmailVerified(false);
+//            HttpEntity<UserRepresentation> request = new HttpEntity<>(userRepresentation, headersuser);
+//
+//            String userUrl = issueUrlUser+"/users/";
+//            System.out.println(userUrl+"issueUrl");
+//            URI uri = UriComponentsBuilder.fromUriString(userUrl).buildAndExpand("KeyClock-INSY2S-E-LEARING").toUri();
+//            String userSearchedFromKeycloak=getUserByIdFromKeycloak(user.getUsername());
+//            System.out.println(userSearchedFromKeycloak +"userSearched");
+//         //   if( userSearchedFromKeycloak == null)    {
+//
+//                    ResponseEntity<UserRepresentation> response =
+//                            restTemplate.postForEntity(uri, request, UserRepresentation.class
+//                            );
+//            System.out.println("statut code  = "+response.getStatusCode().is2xxSuccessful());
+//                    if(response.getStatusCode().is2xxSuccessful())
+//                    {
+//
+//                       String userSearchedFromKeycloak1=getUserByIdFromKeycloak(user.getUsername());
+//
+//
+//                        userSaved.setId(user.getId());
+//                        userSaved.setFirstname(user.getFirstname());
+//                        userSaved.setUsername(user.getUsername());
+//                        userSaved.setLastname(user.getLastname());
+//                        userSaved.setEmail(user.getEmail());
+//                        userSaved.setPassword(user.getPassword());
+//                        userSaved.setRoles(roles);
+//                        userRepository.save(userSaved);
+//
+//                    }
+//                     return  ResponseEntity.status(201).body(userSaved);}
+
+
+            System.out.println("rolesKey" + rolesKey);
 
             String randomPassword = generateRandomPassword();
-            System.out.println("password"+randomPassword);
+            System.out.println("password" + randomPassword);
             user.setPassword(randomPassword);
-            LoginRequest loginRequest=new LoginRequest("insy2s","insy2s");
-            ResponseEntity <LoginResponse>token=loginService.login(loginRequest);
+
+            LoginRequest loginRequest = new LoginRequest("insy2s", "insy2s");
+            ResponseEntity<LoginResponse> token = loginService.login(loginRequest);
 
             HttpHeaders headersuser = new HttpHeaders();
             headersuser.setBearerAuth(token.getBody().getAccess_token());
+
+            Collection<Role> targetRoles = new ArrayList<>();
+            Collection<Role> roles = user.getRoles();
+            Optional<Role> roleUser = Optional.of(new Role());
+
+            for (Role role : roles) {
+                String roleName = role.getName();
+                roleUser = roleRepository.findByName(roleName);
+                targetRoles.add(roleUser.get());
+            }
+            List<String> userRep ;
+            userRep = roles.stream().map(Role::getName).collect(Collectors.toList());
+
+            User userSaved = new User();
 
             UserRepresentation userRepresentation = new UserRepresentation();
             userRepresentation.setFirstName(user.getFirstname());
@@ -103,41 +184,42 @@ public static String generateRandomPassword() {
             userRepresentation.setUsername(user.getUsername());
             userRepresentation.setCredentials(Collections.singletonList(getPasswordCredentials(user.getPassword())));
             userRepresentation.setEnabled(true);
-            userRepresentation.setEmailVerified(true);
+            userRepresentation.setRealmRoles(userRep);
+            userRepresentation.setEmailVerified(false);
             HttpEntity<UserRepresentation> request = new HttpEntity<>(userRepresentation, headersuser);
-            String userUrl = issueUrlUser+"/users/";
-            URI uri = UriComponentsBuilder.fromUriString(userUrl).buildAndExpand("KeyClock-INSY2S").toUri();
-            String userSearchedFromKeycloak=getUserByIdFromKeycloak(user.getUsername());
-            if( Objects.equals(userSearchedFromKeycloak, null)     )       {
-                    ResponseEntity<UserRepresentation> response =
-                            restTemplate.postForEntity(uri, request, UserRepresentation.class
-                            );
 
-                    if(response.getStatusCode().value()==201)
-                    {
-                        String userSearchedFromKeycloak1=getUserByIdFromKeycloak(user.getUsername());
+            String userUrl = issueUrlUser + "/users/";
+            System.out.println(userUrl + "issueUrl");
+            URI uri = UriComponentsBuilder.fromUriString(userUrl).buildAndExpand("KeyClock-INSY2S-E-LEARING").toUri();
+            String userSearchedFromKeycloak = getUserByIdFromKeycloak(user.getUsername());
+            System.out.println(userSearchedFromKeycloak + "userSearched");
 
-                        user.setId(userSearchedFromKeycloak1);
-                        userSaved.setId(Long.valueOf(user.getId()));
-                        userSaved.setFirstname(user.getFirstname());
-                        userSaved.setUsername(user.getUsername());
-                        userSaved.setLastname(user.getLastname());
-                        userSaved.setEmail(user.getEmail());
-                        userSaved.setPassword(user.getPassword());
-                        userSaved.setRoles(roles);
-                        userRepository.save(userSaved);
+            ResponseEntity<UserRepresentation> response = restTemplate.postForEntity(uri, request, UserRepresentation.class);
+            System.out.println("status code = " + response.getStatusCode().is2xxSuccessful());
+            if (response.getStatusCode().is2xxSuccessful()) {
+                String userSearchedFromKeycloak1 = getUserByIdFromKeycloak(user.getUsername());
 
-                    }
-                     return  ResponseEntity.status(201).body(userSaved);}
+                userSaved.setId(user.getId());
+                userSaved.setFirstname(user.getFirstname());
+                userSaved.setUsername(user.getUsername());
+                userSaved.setLastname(user.getLastname());
+                userSaved.setEmail(user.getEmail());
+                userSaved.setPassword(user.getPassword());
+                 userSaved.setRoles(targetRoles);
+                userRepository.save(userSaved);
+            }
 
-                else{
+            return ResponseEntity.status(201).body(userSaved);
+        }
+
+           /*    else{
 
 
                return  ResponseEntity.status(302).body(" user found");}
 
                     }
 
-
+*/
     private CredentialRepresentation getPasswordCredentials(String password) {
         CredentialRepresentation credential = new CredentialRepresentation();
         credential.setType(CredentialRepresentation.PASSWORD);
@@ -188,6 +270,11 @@ public User getUser(String username)
 {
     return userRepository.findByUsername(username);
 }
+    public User getUserById(Long id)
+    {
+        return userRepository.findUserById(id);
+    }
+
 
     public User saveUser(User user)
     {
@@ -233,4 +320,6 @@ public User getUser(String username)
     userRepository.delete(userSearched);
     return ResponseEntity.status(200).body("the User "+userSearched.getUsername()+" deleted with success");
     }
+
+
     }

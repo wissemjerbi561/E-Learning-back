@@ -108,7 +108,11 @@ public class MemberController {
     public List<Member> getTutorMembers() {
         return memberService.getTutorMembers();
     }
-    @GetMapping("apprenant")
+    @GetMapping("/tuteuracademique")
+    public List<Member> getTuteurAcademique() {
+        return memberService.getTuteurAcademique();
+    }
+    @GetMapping("/apprenant")
     public List<Member> getApprenantMembers() {
         return memberService.getApprenantMembers();
     }
@@ -117,7 +121,9 @@ public class MemberController {
     public long countMembersWithPositionApprenant() {
         return memberService.countMembersWithPositionApprenant();
     }
-    }
+
+
+}
 
 
 
