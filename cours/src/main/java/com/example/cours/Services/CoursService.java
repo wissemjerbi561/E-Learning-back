@@ -2,6 +2,7 @@ package com.example.cours.Services;
 
 import com.example.cours.Entities.Chapitre;
 import com.example.cours.Entities.Cours;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -12,5 +13,6 @@ public interface CoursService {
     public Cours updateCr(Long idc);
     public void delete(Long idc);
     public void calculNotemoyenne(Long idcr);
-    public Cours saveAffectCr(Cours cr);
+    public Cours saveAffectCr(Cours cr, MultipartFile imageFile);
+    public Cours saveAffectCrSi(Cours cr);
 }

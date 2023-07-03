@@ -15,6 +15,8 @@ public class AviCoursServiceImp implements AviCoursService{
     AviCoursRepo aviCoursRepo;
     @Autowired
     CoursRepo coursRepo;
+    @Autowired
+    CoursServiceImp coursService;
 
     @Override
     public AviCours saveAvi(AviCours av) {
@@ -45,6 +47,8 @@ public class AviCoursServiceImp implements AviCoursService{
         aviCoursRepo.save(ch);
         Cours cr=coursRepo.findById(ch.getIdCours()).get();
         ch.setCoursav(cr);
+        coursService.calculNotemoyenne(cr.getIdCours());
         return  aviCoursRepo.save(ch);
     }
 }
+
