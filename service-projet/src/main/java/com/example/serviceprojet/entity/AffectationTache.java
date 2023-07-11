@@ -18,7 +18,7 @@ public class AffectationTache {
     private Date DateDebut;
     private Date DateFin;
     //  private long memberId;
-    @ManyToOne
+    @OneToOne
 
     // @JsonIgnore
     @JoinColumn(name="tache_id", nullable=false)
@@ -30,7 +30,17 @@ public class AffectationTache {
     @Column(name = "member_id", nullable = false)
     private Long memberId;
 
-    public AffectationTache(Tache tache) {
-        this.tache = tache;
-    }
+    @ManyToOne
+   @JoinColumn(name="projet_id")
+
+   private Projet projet;
+    @Transient
+    private  long projetId;
+
+
+    //public AffectationTache(Tache tache) {
+        //this.tache = tache;
+   // }
+
+
 }

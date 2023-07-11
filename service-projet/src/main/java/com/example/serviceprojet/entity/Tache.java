@@ -18,7 +18,7 @@ public class Tache {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idTache;
     private String description;
-    private Date DateDebut;
+   private Date DateDebut;
     private Date DateFin;
     private Float Pourcentage;
     private int dure;
@@ -32,7 +32,9 @@ public class Tache {
     @JsonIgnore
     private Activite activite;
 
-    @ManyToOne
-    @JoinColumn(name = "projet_id")
+    @Transient
     private Projet projet;
+    @Transient
+    private Long idProjet;
 }
+

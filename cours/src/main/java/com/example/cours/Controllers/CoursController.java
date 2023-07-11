@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
+@RequestMapping("/cours")
 public class CoursController {
     @Autowired
     CoursServiceImp coursService;

@@ -40,7 +40,11 @@ spring:
          uri: http://localhost:8090
          predicates:
            - Path=/cours/**
-
+       #-----------Evaluation---------------------
+       - id: evaluation-service
+         uri: http://localhost:8094
+         predicates:
+           - Path=/evaluation/**
 
 
 
