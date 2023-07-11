@@ -27,4 +27,6 @@ public class Tarif {
     @JsonBackReference
     @ManyToOne
     private Cours courstr;
+
+    private Double prix;
 }

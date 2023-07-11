@@ -20,6 +20,7 @@ public class Position implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long positionId;
     private String name;
+    private int Code;
 
 
 }

@@ -18,6 +18,7 @@ public class AffectationProjet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idAffectation;
     private  String  role ;
+    private boolean  existing;
   //  private long memberId;
     @ManyToOne
 

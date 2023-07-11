@@ -60,4 +60,7 @@ public class Cours {
     private Categorie categorie;
     @ManyToOne
     private SousCategorie sousCategorie;
+
+ @Transient
+ private Double prix;
 }

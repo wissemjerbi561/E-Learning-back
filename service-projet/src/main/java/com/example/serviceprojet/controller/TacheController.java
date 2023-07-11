@@ -1,6 +1,8 @@
 package com.example.serviceprojet.controller;
 
 import com.example.serviceprojet.Services.ActiviteServiceImpl;
+import com.example.serviceprojet.Services.AffectationProjetServiceImpl;
+import com.example.serviceprojet.Services.ProjetServiceImp;
 import com.example.serviceprojet.Services.TacheServiceImpl;
 import com.example.serviceprojet.entity.Activite;
 import com.example.serviceprojet.entity.Projet;
@@ -12,7 +14,9 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -24,6 +28,8 @@ public class TacheController {
     TacheRepository tacheRepository;
     @Autowired
     TacheServiceImpl tacheService;
+    @Autowired
+    ProjetRepository projetRepository;
 
     public TacheController(TacheRepository tacheRepository) {
         this.tacheRepository = tacheRepository;
@@ -48,8 +54,8 @@ public class TacheController {
     @PutMapping("/{idTache}")
     public ResponseEntity<Tache> updatetache(@PathVariable Long idTache, @RequestBody Tache tache) {
         Tache tache1 = tacheRepository.findById(idTache).orElseThrow(() -> new ResourceNotFoundException("projet not exist with id" + idTache));
-        tache1.setDateDebut(tache.getDateDebut());
-        tache1.setDateFin(tache.getDateFin());
+      //  tache1.setDateDebut(tache.getDateDebut());
+      //  tache1.setDateFin(tache.getDateFin());
         tache1.setDescription(tache.getDescription());
         tache1.setDure(tache.getDure());
         Tache updatetache = tacheRepository.save(tache1);
@@ -75,8 +81,26 @@ public class TacheController {
         tacheService.ajouterTache(tache, idActivite);
     }
 
-    @GetMapping("/withProjet")
+   /* @GetMapping("/withProjet")
     public List<Tache> getTachesWithProjet() {
-        return tacheService.getTachesWithProjet();
-    }
+        return tacheService.getTachesWithProjet();}*/
+
+ /*   @GetMapping("/withProjettt")
+    public List<Tache> getAllTachesWithProjetDescription() {
+
+        List<Tache> lstaches= new ArrayList<Tache>();
+        for(Tache t: tacheRepository.findAllTachesWithProjet()){
+            if (t.getIdProjet() != null){
+
+            Optional <Projet> projet = projetRepository.findById(t.getIdProjet());
+            if (projet.isPresent()) {
+
+
+            t.setProjet(projet.get());
+        }
+            }
+            lstaches.add(t);
+        }
+        return lstaches;
+    }*/
 }

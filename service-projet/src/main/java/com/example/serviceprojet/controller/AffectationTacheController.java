@@ -51,4 +51,10 @@ public class AffectationTacheController {
     public ResponseEntity getAllAffectationsTaches() {
         return ResponseEntity.ok(this.affectationTacheRepository.findAll());
     }
+    @GetMapping("/tachesaffectes/{memberId}")
+    public ResponseEntity<List<AffectationTache>> getTachesMembre(@PathVariable Long memberId) {
+        List<AffectationTache> taches = affectationTacheRepository.findByMemberId(memberId);
+        return ResponseEntity.ok(taches);
+    }
+
 }
