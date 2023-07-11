@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
@@ -22,12 +23,16 @@ public class Cours {
     private Long idCours;
     private String nom;
     private String description;
-    private int nbrDesInscrits;
+
+   @Value("0")
+   private int nbrDesInscrits;
+    @Value("0")
     private int nbrDesCertifiés;
     @Temporal(TemporalType.DATE)
     private Date dateDebut;
     @Temporal(TemporalType.DATE)
     private Date dateFin;
+    @Value("0")
     private float noteMoyenneSatisfaction;
     @Column(length = 1000)
     private String imageUrl;
