@@ -35,7 +35,7 @@ private UserRepository userRepository;
 	@Bean
 	CommandLineRunner start(){
 		return args-> {
-			Role admin = new Role();
+		/*	Role admin = new Role();
 			admin.setName("ADMIN");
 			saveRole(admin)		;
 
@@ -49,7 +49,7 @@ private UserRepository userRepository;
 			user.setPassword("iheb");
 			user.setRoles(roleRepository.findAll());
 			saveUser(user);
-
+*/
 
 		};}
 

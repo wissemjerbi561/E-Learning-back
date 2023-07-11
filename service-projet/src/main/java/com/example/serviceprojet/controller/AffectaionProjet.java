@@ -28,7 +28,9 @@ public class AffectaionProjet {
 
     @PostMapping("/add")
     public void ajouterAffectation(@RequestBody AffectationProjet affectationProjet){
+
         affectationProjetService.ajouterAffectation(affectationProjet);
+
 
 
     }
