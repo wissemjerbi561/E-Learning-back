@@ -38,8 +38,27 @@ public class AffectationProjetServiceImpl implements IAffectationProjetService {
         return affectationProjet;
 
     }
+    public AffectationProjet ajouterAffectationApprenantVerification(AffectationProjet affectationProjet) {
 
+        Projet projet = projetRepository.findById(affectationProjet.getProjetId()).orElse(null);
 
+        affectationProjet.setProjet(projet);
+        affectationProjet.setRole("Apprenant verification");
 
+        affectationProjet=affectationProjetRepository.save(affectationProjet);
+        return affectationProjet;
+
+    }
+    public AffectationProjet ajouterAffectationApprenantDaide(AffectationProjet affectationProjet) {
+
+        Projet projet = projetRepository.findById(affectationProjet.getProjetId()).orElse(null);
+
+        affectationProjet.setProjet(projet);
+        affectationProjet.setRole("Apprenant d'aide");
+
+        affectationProjet=affectationProjetRepository.save(affectationProjet);
+        return affectationProjet;
+
+    }
 
 }

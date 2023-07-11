@@ -39,6 +39,27 @@ public class ProjetServiceImp implements IProjetService{
        projetRepository.save(projet);
 
     }
+
+    @Override
+    public void ajouterType(Type type) {
+
+        typeRepository.save(type);
+
+    }
+    @Autowired
+    TypeRepository typeRepository;
+    @Autowired
+    NotificationRepository notificationRepository;
+    @Override
+    public void ajouterNotification(Notification notification, Long typeId) {
+        // TODO Auto-generated method stub
+
+        Type  type = typeRepository.findById(typeId).orElse(null);
+        //  User User = userRepository.findById(Id).orElse(null);
+        notification.setType(type);
+        notificationRepository.save(notification);
+
+    }
     public List<Projet> getProjetsWithProblemes() {
         return projetRepository.findAllFetchProblemes();
     }

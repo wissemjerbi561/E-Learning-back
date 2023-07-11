@@ -1,6 +1,7 @@
 package com.example.serviceprojet.controller;
 
 import com.example.serviceprojet.Services.AffectationProjetServiceImpl;
+import com.example.serviceprojet.Services.NotificationHandler;
 import com.example.serviceprojet.entity.AffectationProjet;
 import com.example.serviceprojet.entity.Projet;
 import com.example.serviceprojet.repository.AffectationProjetRepository;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.socket.WebSocketHandler;
 
 import java.lang.reflect.Member;
 
@@ -26,12 +28,20 @@ public class AffectaionProjet {
     @Autowired
     private AffectationProjetServiceImpl affectationProjetService;
 
+
+    @Autowired
+    private WebSocketHandler webSocketHandler;
+
+
+
     @PostMapping("/add")
     public void ajouterAffectation(@RequestBody AffectationProjet affectationProjet){
         affectationProjetService.ajouterAffectation(affectationProjet);
 
 
     }
+
+
     @PostMapping("/addtuteuracademique")
 
     public void  ajouterAffectationtuteuracademique(@RequestBody AffectationProjet affectationProjet){
@@ -39,6 +49,29 @@ public class AffectaionProjet {
 
 
     }
+    @Autowired
+    private NotificationHandler notificationHandler;
+
+    // ...
+
+    @PostMapping("/addapprenantverification")
+    public void ajouterAffectationApprenantVerification(@RequestBody AffectationProjet affectationProjet){
+        affectationProjetService.ajouterAffectationApprenantVerification(affectationProjet);
+
+
+    }
+
+
+
+    @PostMapping("/addapprenantaide")
+
+    public void ajouterAffectationApprenantDaide(@RequestBody AffectationProjet affectationProjet){
+        affectationProjetService.ajouterAffectationApprenantDaide(affectationProjet);
+
+
+    }
+
+
 
 
 

@@ -1,6 +1,8 @@
 package com.example.serviceprojet.controller;
 
+import com.example.serviceprojet.Services.NotificationServiceImp;
 import com.example.serviceprojet.Services.ProjetServiceImp;
+import com.example.serviceprojet.Services.TypeServiceImp;
 import com.example.serviceprojet.entity.*;
 import com.example.serviceprojet.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class ProjetController {
 
     @Autowired
     CoursRepository coursRepository;
+    @Autowired
+    TypeRepository typeRepository;
     @Autowired
     ProjetRepository projetRepository;
     @Autowired
@@ -47,7 +51,16 @@ public class ProjetController {
     }
 
 
+    @PostMapping("/crea")
+    public ResponseEntity<Type> saveType(@RequestBody Type type) {
+        return ResponseEntity.ok(typeRepository.save(type));
+    }
+    @PostMapping("/createType")
+    public void ajouterType(@RequestBody Type type ) {
+        projetService.ajouterType(type);
 
+
+    }
 
     @PostMapping("/create")
     public ResponseEntity<Projet> saveProjet(@RequestBody Projet projet) {
@@ -130,6 +143,12 @@ public class ProjetController {
     @PostMapping("/add-projet/{idCours}")
     public void ajouterProjet(@RequestBody Projet projet, @PathVariable("idCours") Long idCours) {
         projetService.ajouterProjet(projet, idCours);
+
+
+    }
+    @PostMapping("/add-notification/{typeId}")
+    public void ajouterNotification(@RequestBody Notification notification, @PathVariable("typeId") Long typeId) {
+        projetService.ajouterNotification(notification, typeId);
 
 
     }

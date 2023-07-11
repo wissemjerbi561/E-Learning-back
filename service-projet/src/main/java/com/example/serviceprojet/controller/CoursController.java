@@ -4,6 +4,7 @@ import com.example.serviceprojet.Services.ProjetServiceImp;
 import com.example.serviceprojet.entity.Cours;
 import com.example.serviceprojet.repository.CoursRepository;
 import com.example.serviceprojet.repository.ProjetRepository;
+import com.example.serviceprojet.repository.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,20 @@ public class CoursController {
     }
 
 
+
+
+    @Autowired
+    TypeRepository typeRepository;
+
+
+
+
+
+
+    @GetMapping("/type")
+    public ResponseEntity getAllTypes() {
+        return ResponseEntity.ok(this.typeRepository.findAll());
+    }
 
 
 }

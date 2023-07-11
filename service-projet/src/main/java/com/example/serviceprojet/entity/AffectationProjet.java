@@ -28,7 +28,7 @@ public class AffectationProjet {
     @Transient
     private long projetId;
 
-    @Column(name = "member_id", nullable = false)
+    @Column(name = "member_id")
     private Long memberId;
 
     public AffectationProjet(Projet projet, Long memberId) {
