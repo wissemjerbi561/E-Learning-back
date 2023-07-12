@@ -62,5 +62,5 @@ public class Cours {
     private SousCategorie sousCategorie;
 
  @Transient
- private Double prix;
+ private Double price;
 }
