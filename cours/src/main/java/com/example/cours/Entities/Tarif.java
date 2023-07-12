@@ -28,5 +28,5 @@ public class Tarif {
     @ManyToOne
     private Cours courstr;
 
-    private Double prix;
+    private Double price;
 }
