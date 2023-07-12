@@ -5,6 +5,8 @@ package com.insy2s.KeyCloakAuth.service;
 import com.insy2s.KeyCloakAuth.model.*;
 import com.insy2s.KeyCloakAuth.repository.RoleRepository;
 import com.insy2s.KeyCloakAuth.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +26,7 @@ public class LoginService {
 	
 	@Autowired
 	RestTemplate restTemplate;
+
 	
 	@Value("${spring.security.oauth2.client.provider.keycloak.token-uri}")
 	private String issueUrl;
@@ -40,8 +45,18 @@ public class LoginService {
 	@Autowired
 	RoleRepository roleRepository;
 	public ResponseEntity<LoginResponse> login(LoginRequest loginrequest) {
+
+
+
+
 		String username = loginrequest.getUsername();
 		String password = loginrequest.getPassword();
+
+
+		User user = new User();
+		User usertosave = new User();
+		user = userRepository.findByUsername(username);
+
 
 
 		HttpHeaders headers = new HttpHeaders();
@@ -59,9 +74,7 @@ public class LoginService {
 		
 		ResponseEntity<LoginResponse> response = restTemplate.postForEntity(issueUrl, httpEntity, LoginResponse.class);
 
-		User user = new User();
-		User usertosave = new User();
-		user = userRepository.findByUsername(username);
+
 
 
 		if(user ==null){
@@ -78,6 +91,10 @@ public class LoginService {
 		loginResponse.setRoles(user.getRoles());
 		TokenResponse token=new TokenResponse();
 		token.setToken(response.getBody().getAccess_token());
+
+
+
+
 
 		return  ResponseEntity.status(200).body(response.getBody());
 	

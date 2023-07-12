@@ -6,18 +6,30 @@ import com.insy2s.KeyCloakAuth.model.*;
 import com.insy2s.KeyCloakAuth.repository.RoleRepository;
 import com.insy2s.KeyCloakAuth.repository.UserRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import lombok.extern.java.Log;
+import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.resource.RealmResource;
+import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -25,6 +37,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService {
+    @Autowired
+    Keycloak keycloak;
 
     @Autowired
     private UserRepository userRepository;
@@ -46,6 +60,8 @@ public class UserService {
     private String issueUrlUser;
     @Value("${spring.security.oauth2.resourceserver.jwt.roles}")
     private String rolesKey;
+    @Value("${keycloak.realm}")
+    private String realm;
 //public List<UserRepresentation> test(){
 //
 //    Keycloak keycloak = KeycloakBuilder.builder()
@@ -82,6 +98,85 @@ public static String generateRandomPassword() {
 
     return sb.toString();
     }
+
+        public ResponseEntity addUser(UserDto user){
+         
+
+
+
+            LoginRequest loginRequest = new LoginRequest("insy2s", "insy2s");
+            ResponseEntity<LoginResponse> token = loginService.login(loginRequest);
+
+            HttpHeaders headersuser = new HttpHeaders();
+            headersuser.setBearerAuth(token.getBody().getAccess_token());
+
+
+
+            String randomPassword = generateRandomPassword();
+            System.out.println("password" + randomPassword);
+            user.setPassword(randomPassword);
+
+
+
+
+            Collection<Role> targetRoles = new ArrayList<>();
+            Collection<Role> roles = user.getRoles();
+            Optional<Role> roleUser = Optional.of(new Role());
+
+            for (Role role : roles) {
+                String roleName = role.getName();
+                roleUser = roleRepository.findByName(roleName);
+                targetRoles.add(roleUser.get());
+            }
+            List<String> userRep ;
+            List<String> userRoles = List.of("ADMIN","member");
+
+            Map<String, List<String>> clientRoles = new HashMap<>();
+            clientRoles.put(clientId, userRoles);
+            userRep = targetRoles.stream().map(Role::getName).collect(Collectors.toList());
+            // Retrieve the RealmResource
+
+            RealmResource realmResource = keycloak.realm(realm);
+
+
+
+            User userSaved = new User();
+
+            UserRepresentation userRepresentation = new UserRepresentation();
+            userRepresentation.setFirstName(user.getFirstname());
+            userRepresentation.setLastName(user.getLastname());
+            userRepresentation.setEmail(user.getEmail());
+            userRepresentation.setUsername(user.getUsername());
+            userRepresentation.setCredentials(Collections.singletonList(getPasswordCredentials(user.getPassword())));
+            userRepresentation.setEnabled(true);
+            userRepresentation.setRealmRoles(userRoles);
+            userRepresentation.setEmailVerified(false);
+
+
+
+            HttpEntity<UserRepresentation> requestRep = new HttpEntity<>(userRepresentation,headersuser);
+
+            String userUrl = issueUrlUser + "/users/";
+            System.out.println(userUrl + "issueUrl");
+            URI uri = UriComponentsBuilder.fromUriString(userUrl).buildAndExpand("KeyClock-INSY2S-E-LEARING").toUri();
+
+            ResponseEntity<UserRepresentation> response = restTemplate.postForEntity(uri, requestRep, UserRepresentation.class);
+            System.out.println("status code = " + response.getStatusCode().is2xxSuccessful());
+            if (response.getStatusCode().is2xxSuccessful()) {
+
+                userSaved.setId(user.getId());
+                userSaved.setFirstname(user.getFirstname());
+                userSaved.setUsername(user.getUsername());
+                userSaved.setLastname(user.getLastname());
+                userSaved.setEmail(user.getEmail());
+                userSaved.setPassword(user.getPassword());
+                userSaved.setRoles(targetRoles);
+                userRepository.save(userSaved);
+            }
+
+            return ResponseEntity.status(201).body(userSaved);
+        }
+
         public ResponseEntity createUser(UserDto user) {
 
 //            System.out.println("rolesKey" +rolesKey);
@@ -173,7 +268,14 @@ public static String generateRandomPassword() {
                 targetRoles.add(roleUser.get());
             }
             List<String> userRep ;
-            userRep = roles.stream().map(Role::getName).collect(Collectors.toList());
+
+            userRep = targetRoles.stream().map(Role::getName).collect(Collectors.toList());
+            // Retrieve the RealmResource
+
+            RealmResource realmResource = keycloak.realm(realm);
+
+            // Get the UsersResource
+            UsersResource usersResource = realmResource.users();
 
             User userSaved = new User();
 
@@ -186,6 +288,9 @@ public static String generateRandomPassword() {
             userRepresentation.setEnabled(true);
             userRepresentation.setRealmRoles(userRep);
             userRepresentation.setEmailVerified(false);
+
+
+
             HttpEntity<UserRepresentation> request = new HttpEntity<>(userRepresentation, headersuser);
 
             String userUrl = issueUrlUser + "/users/";
@@ -197,7 +302,7 @@ public static String generateRandomPassword() {
             ResponseEntity<UserRepresentation> response = restTemplate.postForEntity(uri, request, UserRepresentation.class);
             System.out.println("status code = " + response.getStatusCode().is2xxSuccessful());
             if (response.getStatusCode().is2xxSuccessful()) {
-                String userSearchedFromKeycloak1 = getUserByIdFromKeycloak(user.getUsername());
+
 
                 userSaved.setId(user.getId());
                 userSaved.setFirstname(user.getFirstname());
