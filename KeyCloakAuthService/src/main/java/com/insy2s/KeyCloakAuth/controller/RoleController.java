@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/keycloak/roles")
+@CrossOrigin("*")
 public class RoleController {
     @Autowired
     private RoleService roleService;
