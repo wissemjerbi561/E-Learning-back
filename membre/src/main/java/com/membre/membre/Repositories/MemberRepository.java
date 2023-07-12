@@ -15,11 +15,11 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
     @Query("SELECT m FROM Member m JOIN m.positions p WHERE p.name = :name")
     List<Member> findByPositionName(@Param("name") String name);
     @Query("SELECT m FROM Member m JOIN m.positions p WHERE p.Code = :Code")
-    List<Member> findByPositionCode(@Param("Code") int Code);
+    List<Member> findByPositionCode(@Param("Code") String Code);
     @Query("SELECT COUNT(m) FROM Member m JOIN m.positions p WHERE p.name = 'Apprenant'")
     long countByPositionNameApprenant();
 
-     Member findMemberByUserId(@Param("id") int userId);
+     Member findMemberByUserId(@Param("id") Long userId);
 
 
 
