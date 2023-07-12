@@ -25,8 +25,20 @@ public interface TacheRepository  extends JpaRepository<Tache,Long> {
     @Query("SELECT t FROM Tache t WHERE t.activite.idActivite = :activiteId AND t.status = false")
     List<Tache> findTachesWithStatusFalseByActiviteId(@Param("activiteId") Long activiteId);
 
-    @Query("SELECT t FROM Tache t LEFT JOIN FETCH t.projet")
-    List<Tache> findAllWithProjet();
+  /*  @Query("SELECT t FROM Tache t LEFT JOIN FETCH t.projet")
+    List<Tache> findAllWithProjet();*/
+  /*@Query("SELECT t, pr FROM Tache t " +
+          "JOIN  t.activite a " +
+          "JOIN  a.probleme p " +
+          "LEFT JOIN  p.projet pr ")
+    List<Tache> findAllTachesWithProjet();*/
+   /* @Query  (value = "SELECT t.*, pr.id_Projet FROM Tache t, activite a , probleme p , projet pr " +
+            "WHERE   t.activite_id_activite= a.id_activite " +
+            "AND  a.probleme_id_probleme= p.id_probleme " +
+            "AND  p.projet_id_projet=pr.id_projet  ",nativeQuery = true)
+    List<Tache> findAllTachesWithProjet();*/
+
+
 
 
 }

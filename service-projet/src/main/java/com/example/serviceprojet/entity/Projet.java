@@ -36,7 +36,7 @@ public class Projet {
     private Cours cours;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projet")
-    private Set<Probleme> problemes;
+    private List<Probleme> problemes;
 
     public void setPhases(List<Phase> phases) {
     }

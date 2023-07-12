@@ -20,6 +20,10 @@ public interface AffectationTacheRepository extends JpaRepository<AffectationTac
   List<AffectationTache> findAffectationsDuProjet(@Param("idProjet") Long idProjet);
 
 
+  List<AffectationTache> findByMemberId(Long memberId);
+
+
+
 
 
 

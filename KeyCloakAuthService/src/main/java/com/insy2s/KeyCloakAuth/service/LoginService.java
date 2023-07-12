@@ -52,18 +52,12 @@ public class LoginService {
 		String username = loginrequest.getUsername();
 		String password = loginrequest.getPassword();
 
+
 		User user = new User();
 		User usertosave = new User();
 		user = userRepository.findByUsername(username);
 
 
-		if(user ==null){
-			usertosave.setUsername(username);
-			usertosave.setPassword(password);
-			usertosave.setRoles(roleRepository.findAll());
-		user=userRepository.save(usertosave);
-
-		}
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -79,6 +73,18 @@ public class LoginService {
 		HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(map,headers);
 		
 		ResponseEntity<LoginResponse> response = restTemplate.postForEntity(issueUrl, httpEntity, LoginResponse.class);
+
+
+
+
+		if(user ==null){
+			usertosave.setUsername(username);
+			usertosave.setPassword(password);
+			usertosave.setRoles(roleRepository.findAll());
+			user=userRepository.save(usertosave);
+
+		}
+
 		LoginResponse loginResponse = response.getBody();
 		loginResponse.setUserId(user.getId());
 		loginResponse.setUsername(username);

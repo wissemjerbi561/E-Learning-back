@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/e-learning-back.iml" filepath="$PROJECT_DIR$/.idea/e-learning-back.iml" />
-      <module fileurl="file://$PROJECT_DIR$/membre/membre.iml" filepath="$PROJECT_DIR$/membre/membre.iml" />
-      <module fileurl="file://$PROJECT_DIR$/paiement/paiement/paiement.iml" filepath="$PROJECT_DIR$/paiement/paiement/paiement.iml" />
     </modules>
   </component>
 </project>

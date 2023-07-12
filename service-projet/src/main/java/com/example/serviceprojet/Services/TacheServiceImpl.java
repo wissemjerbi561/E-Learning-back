@@ -33,8 +33,8 @@ public class TacheServiceImpl implements  ITacheService {
         tacheRepository.save(tache);
 
     }
-    public List<Tache> getTachesWithProjet() {
-        return tacheRepository.findAllWithProjet();
-    }
+  /*  public List<Tache> getTachesWithProjet() {
+        return tacheRepository.findAllWithProjet(); }*/
+
 
 }

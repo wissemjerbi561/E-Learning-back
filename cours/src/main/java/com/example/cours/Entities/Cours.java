@@ -1,32 +1,49 @@
 package com.example.cours.Entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.Set;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "sousCategorie", "categorie"})
 public class Cours {
-     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCours;
     private String nom;
-     private String description;
-     private int nbrDesInscrits;
+    private String description;
+
+   @Value("0")
+   private int nbrDesInscrits;
+    @Value("0")
     private int nbrDesCertifiés;
     @Temporal(TemporalType.DATE)
     private Date dateDebut;
     @Temporal(TemporalType.DATE)
     private Date dateFin;
+    @Value("0")
     private float noteMoyenneSatisfaction;
+    @Column(length = 1000)
+    private String imageUrl;
+    @Transient
+    private MultipartFile imageFile;
     @Transient
     private Long idTheme;
+    @Transient
+    private Long idCategorie;
+    @Transient
+    private Long idSousCategorie;
     @JsonManagedReference
     @OneToMany(mappedBy = "coursav")
     private Set<AviCours> aviCours;
@@ -35,12 +52,15 @@ public class Cours {
 
     private Set<Chapitre> chapitres;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "courstr")
-    private Set<Tarif> tarifs;
+
     @JsonBackReference
     @ManyToOne
     private Theme theme;
+    @ManyToOne
+    private Categorie categorie;
+    @ManyToOne
+    private SousCategorie sousCategorie;
 
-
+ @Transient
+ private Double prix;
 }
