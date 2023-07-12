@@ -48,11 +48,16 @@ public class UserController {
     @PostMapping(value = "/signup")
     ResponseEntity createUser(@RequestBody UserDto user){
 
-        return userService.createUser( user);
+        return userService.createUser(user);
     }
 
+    @PostMapping(value = "/addUser")
+    ResponseEntity saveUser(@RequestBody UserDto user ){
+
+        return userService.addUser(user);
+    }
     @PostMapping(value = "/create")
-    ResponseEntity saveUser(@RequestBody UserDto user){
+    ResponseEntity addUser(@RequestBody UserDto user){
 
         return keycloakService.createUser(user);
     }

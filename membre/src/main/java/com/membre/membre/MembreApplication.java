@@ -17,9 +17,9 @@ public class MembreApplication implements CommandLineRunner {
         positionRepository.save(new Position(null,"Tuteur Academique",1));
         positionRepository.save(new Position(null,"Apprenant", 2));
         positionRepository.save(new Position(null,"Tuteur Professionnel",3));
-        positionRepository.save(new Position(null,"Apprenant Aide",4));
-        positionRepository.save(new Position(null,"Apprenant Realisation",5));
-        positionRepository.save(new Position(null,"Apprenant verification",6));
+        //positionRepository.save(new Position(null,"Apprenant Aide",4));
+        //positionRepository.save(new Position(null,"Apprenant Realisation",5));
+        //positionRepository.save(new Position(null,"Apprenant verification",6));
     }
     @Autowired
     private PositionRepository positionRepository;
