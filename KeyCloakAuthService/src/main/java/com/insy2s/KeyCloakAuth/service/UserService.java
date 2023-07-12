@@ -1,6 +1,7 @@
 package com.insy2s.KeyCloakAuth.service;
 
 
+import com.insy2s.KeyCloakAuth.ServiceMail.EmailServiceImp;
 import com.insy2s.KeyCloakAuth.dto.UserDto;
 import com.insy2s.KeyCloakAuth.model.*;
 import com.insy2s.KeyCloakAuth.repository.RoleRepository;
@@ -37,6 +38,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService {
+    @Autowired
+    private EmailServiceImp emailServiceImp;
     @Autowired
     Keycloak keycloak;
 
@@ -311,6 +314,7 @@ public static String generateRandomPassword() {
                 userSaved.setEmail(user.getEmail());
                 userSaved.setPassword(user.getPassword());
                  userSaved.setRoles(targetRoles);
+                emailServiceImp.sendmail(user.getFirstname(),user.getEmail(),user.getPassword());
                 userRepository.save(userSaved);
             }
 
