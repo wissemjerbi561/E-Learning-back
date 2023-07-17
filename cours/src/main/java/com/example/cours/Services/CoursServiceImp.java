@@ -125,10 +125,16 @@ public class CoursServiceImp implements CoursService{
         coursRepo.save(cr);
         Theme th = themeRepo.findById(cr.getIdTheme()).orElse(null);
         cr.setTheme(th);
-        Categorie cat=categorieRepo.findById(cr.getIdCategorie()).get();
-        cr.setCategorie(cat);
-        SousCategorie souscat=sousCategorieRepo.findById(cr.getIdSousCategorie()).get();
-        cr.setSousCategorie(souscat);
+
+        if(cr.getIdCategorie()!=null) {
+
+            Categorie cat = categorieRepo.findById(cr.getIdCategorie()).get();
+            cr.setCategorie(cat);
+        }
+        if(cr.getIdSousCategorie()!=null) {
+            SousCategorie souscat = sousCategorieRepo.findById(cr.getIdSousCategorie()).get();
+            cr.setSousCategorie(souscat);
+        }
 
         return  coursRepo.save(cr);
     }

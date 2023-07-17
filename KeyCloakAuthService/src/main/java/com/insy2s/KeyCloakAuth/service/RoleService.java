@@ -22,12 +22,12 @@ import java.util.*;
 
 @Service
 public class RoleService {
-@Autowired
-private RoleRepository roleRepository;
+    @Autowired
+    private RoleRepository roleRepository;
     @Autowired
     RestTemplate restTemplate;
     @Autowired
-    private  LoginService loginService;
+    private LoginService loginService;
     @Value("${spring.security.oauth2.client.provider.keycloak.token-uri}")
     private String issueUrl;
 
@@ -53,10 +53,10 @@ private RoleRepository roleRepository;
 
     }
 
-public List<Role>getRoles(){
-    return roleRepository.findAll();
+    public List<Role> getRoles() {
+        return roleRepository.findAll();
 
-}
+    }
 
 
     public List<Role> getAllRoles() {
@@ -70,7 +70,8 @@ public List<Role>getRoles(){
 
         String url = "https://keycloak.fethi.synology.me/auth/admin/realms/KeyClock-INSY2S-E-LEARING/roles";
         URI uri = UriComponentsBuilder.fromUriString(url).buildAndExpand("KeyClock-INSY2S-E-LEARING").toUri();
-        ParameterizedTypeReference<List<RoleRepresentation>> responseType = new ParameterizedTypeReference<>() {};
+        ParameterizedTypeReference<List<RoleRepresentation>> responseType = new ParameterizedTypeReference<>() {
+        };
         ResponseEntity<List<RoleRepresentation>> responseRole = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, responseType);
 
         if (responseRole.getStatusCode().is2xxSuccessful()) {
@@ -108,50 +109,44 @@ public List<Role>getRoles(){
         }
     }
 
-public Role createRole(Role role)
-{
+    public Role createRole(Role role) {
 
-//    LoginRequest loginRequest=new LoginRequest("insy2s","insy2s");
-//    ResponseEntity<LoginResponse> token=loginService.login(loginRequest);
-//
-//    // Step 1: Create the role in Keycloak
-//    RoleRepresentation roleRepresentation = new RoleRepresentation();
-//    roleRepresentation.setName(role.getName());
-//    role.setDescription("Role Description");
-//
-//
-//    HttpHeaders headersuser = new HttpHeaders();
-//    headersuser.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-//    headersuser.setBearerAuth(token.getBody().getAccess_token());
-//    HttpEntity<RoleRepresentation> request = new HttpEntity<>(roleRepresentation, headersuser);
-//    String userUrl = issueUrlUser+"/roles/"; // replace {realm} with your realm name
-//    URI uri = UriComponentsBuilder.fromUriString(userUrl).buildAndExpand("KeyClock-INSY2S-E-LEARING").toUri();
-//
-//    ParameterizedTypeReference<RoleRepresentation> responseType = new ParameterizedTypeReference<>() {};
-//    ResponseEntity<RoleRepresentation> responseRole = restTemplate.exchange(uri, HttpMethod.POST, request, responseType);
-//    Role savedRole = new Role();
-//    if (responseRole.getStatusCode().is2xxSuccessful()) {
-//
-//
-//        // Step 2: Save the role in the local database
-//
-//        savedRole.setName(role.getName());
-//        savedRole.setDescription(role.getDescription());
-//        roleRepository.save(savedRole);
-//    }
-//
-//
-//
-//    return ResponseEntity.ok(savedRole) ;
-        //////////////////////////
+        String url = "https://keycloak.fethi.synology.me/auth/admin/realms/KeyClock-INSY2S-E-LEARING/roles/";
+        LoginRequest loginRequest = new LoginRequest("insy2s", "insy2s");
 
-    Role savedRole = new Role();
-    savedRole.setName(role.getName());
-    savedRole.setDescription(role.getDescription());
-    roleRepository.save(savedRole);
+        // Step 1: Obtain the access token from Keycloak
+        ResponseEntity<LoginResponse> tokenResponse = loginService.login(loginRequest);
+        String accessToken = tokenResponse.getBody().getAccess_token();
 
-    return savedRole;
-}
+        // Step 2: Create the role in Keycloak
+        RoleRepresentation roleRepresentation = new RoleRepresentation();
+        roleRepresentation.setName(role.getName());
+        roleRepresentation.setDescription(role.getDescription());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(accessToken);
+        HttpEntity<RoleRepresentation> request = new HttpEntity<>(roleRepresentation, headers);
+        URI uri = UriComponentsBuilder.fromUriString(url).buildAndExpand("KeyClock-INSY2S-E-LEARING").toUri();
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<RoleRepresentation> responseRole = restTemplate.exchange(uri, HttpMethod.POST, request, RoleRepresentation.class);
+
+        Role savedRole = null;
+        if (responseRole.getStatusCode().is2xxSuccessful()) {
+            // Step 3: Save the role in the local database
+            savedRole = new Role();
+            savedRole.setName(role.getName());
+            savedRole.setDescription(role.getDescription());
+            roleRepository.save(savedRole);
+            return ResponseEntity.ok(savedRole).getBody();
+        } else {
+            return savedRole;
+        }
+
+
+    }
+
 
 
     public List<RoleRepresentation> listRoles() {
