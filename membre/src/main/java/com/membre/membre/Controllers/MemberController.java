@@ -66,7 +66,7 @@ public class MemberController {
         return memberRepository.findById(memberId).orElse(null);
     }
     @GetMapping("/user/{userId}")
-    public Member getMemberByUserId(@PathVariable int userId) {
+    public Member getMemberByUserId(@PathVariable Long userId) {
 
         return memberRepository.findMemberByUserId(userId);
     }
