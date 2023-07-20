@@ -1,7 +1,6 @@
 package com.example.evaluation.Entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,28 +8,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
 
-import java.util.Set;
-
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Question {
+public class Choix {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String question;
+    private String text;
     @NotNull
-    private Integer pointsQuestion;
-    private Integer noteApprenant;
+    private boolean correction;
     @Transient
-    private Long idTest;
+    private Long idQuestion;
+    private boolean choixApprenant;
     @JsonBackReference
     @ManyToOne
-    private Test test;
-    @JsonManagedReference
-    @OneToMany(mappedBy = "question")
-    private Set<Choix> choix;
-
+    private Question question;
 }

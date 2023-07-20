@@ -7,6 +7,7 @@ import com.example.evaluation.Repositories.TestRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +20,7 @@ public class QuestionServiceImp implements QuestionService{
     @Override
     public Question saveAffectQuestion(Question q) {
         Test test=testRepo.findById(q.getIdTest()).get();
-        if(test.getPoints()>0) {
+        if(test.getPoints()>0 && q.getPointsQuestion()<=test.getPoints()) {
         q.setTest(test);
         test.setPoints(test.getPoints()-q.getPointsQuestion());
         testRepo.save(test);
@@ -32,5 +33,22 @@ public class QuestionServiceImp implements QuestionService{
     public List<Question> retrieveAll() {
         List<Question> questions=(List<Question>)questionRepo.findAll();
         return questions;
+    }
+
+    @Override
+    public void deleteQuestion(Long idq) {
+        questionRepo.deleteById(idq);
+    }
+    @Override
+    public List<Question> getQuestionsByTestId(Long idTest) {
+        Test test=testRepo.findById(idTest).get();
+        List<Question> questions=(List<Question>)questionRepo.findAll();
+        List<Question> questionsParTest=new ArrayList<>();
+        for(Question qs:questions){
+            if(qs.getTest()==test){
+                questionsParTest.add(qs);
+            }
+        }
+        return questionsParTest;
     }
 }

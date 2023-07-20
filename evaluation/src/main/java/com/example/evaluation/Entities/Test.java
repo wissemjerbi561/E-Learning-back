@@ -23,7 +23,9 @@ public class Test {
     private String description;
     @NotNull
     private Integer points;
+    @NotNull
     private Type type;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "test")
     private Set<Question> question;

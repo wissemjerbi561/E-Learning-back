@@ -4,10 +4,7 @@ import com.example.evaluation.Entities.Question;
 import com.example.evaluation.Entities.Test;
 import com.example.evaluation.Services.QuestionServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,4 +20,11 @@ public class QuestionController {
     public List<Question> affichertoutqs(){
         return questionService.retrieveAll();
     }
+    @DeleteMapping("/supprimerquestion/{idq}")
+    public void supprimerqs(@PathVariable Long idq){
+        questionService.deleteQuestion(idq);
+    }
+    @GetMapping("/affichertoutQuestion/{idTest}")
+    public List<Question> affichertoutqsByTest(@PathVariable Long idTest){
+       return questionService.getQuestionsByTestId(idTest);}
 }
