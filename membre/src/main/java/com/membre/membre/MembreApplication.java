@@ -12,6 +12,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 //@EnableFeignClients
 public class MembreApplication implements CommandLineRunner {
+
+
     @Override
     public void run(String... args) throws Exception {
         positionRepository.save(new Position(null,"Tuteur Academique","ACAD"));
