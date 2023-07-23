@@ -22,7 +22,7 @@ public class Choix {
     private boolean correction;
     @Transient
     private Long idQuestion;
-    private boolean choixApprenant;
+    private Boolean choixApprenant;
     @JsonBackReference
     @ManyToOne
     private Question question;

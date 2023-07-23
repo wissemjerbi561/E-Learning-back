@@ -25,6 +25,7 @@ public class Test {
     private Integer points;
     @NotNull
     private Type type;
+    private Integer duree;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "test")
