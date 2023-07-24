@@ -14,4 +14,5 @@ public interface TestService {
     public void delete(Long idt);
     public Test passTest(Long idt, List<ChoixUpdateRequest> choixUpdates);
     public Test passTestWithSession(Long idTest, List<ChoixUpdateRequest> choixUpdates, HttpSession session);
+    public Test corresctionTest(Long idTest);
 }
