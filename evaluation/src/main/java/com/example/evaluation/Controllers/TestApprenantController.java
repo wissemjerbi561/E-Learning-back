@@ -112,5 +112,9 @@ public class TestApprenantController {
             return ResponseEntity.notFound().build();
         }
     }
+    @PostMapping("/testCorrection/{id}")
+    public Test passTest(@PathVariable("id") Long idTest){
+        return testService.corresctionTest(idTest);
+    }
 
 }

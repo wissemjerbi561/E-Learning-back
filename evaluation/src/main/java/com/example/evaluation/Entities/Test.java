@@ -26,6 +26,7 @@ public class Test {
     @NotNull
     private Type type;
     private Integer duree;
+    private Integer noteApprenant;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "test")

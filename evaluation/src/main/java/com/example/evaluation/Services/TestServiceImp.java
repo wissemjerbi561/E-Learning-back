@@ -138,6 +138,33 @@ testRepo.deleteById(idt);
             return null;
         }
     }
+
+    @Override
+    public Test corresctionTest(Long idTest) {
+        Test test=testRepo.findById(idTest).get();
+        Set<Question> questionsParTest = test.getQuestion();
+        for (Question qs : questionsParTest) {
+            boolean allChoicesCorrect = true;
+            Set<Choix> choixParQuestion = qs.getChoix();
+            for (Choix ch : choixParQuestion) {
+                if (ch.getChoixApprenant() != ch.isCorrection()) {
+                    allChoicesCorrect = false;
+                    break;
+                }
+            }
+            if (allChoicesCorrect) {
+                qs.setNoteApprenant(qs.getPointsQuestion());
+            } else {
+                qs.setNoteApprenant(0);
+            }
+            Integer noteApprenantTest = test.getNoteApprenant();
+            if (noteApprenantTest == null) {
+                noteApprenantTest = 0;
+            }
+            test.setNoteApprenant(noteApprenantTest + qs.getNoteApprenant());
+        }
+        return testRepo.save(test);
+    }
 }
 
 
