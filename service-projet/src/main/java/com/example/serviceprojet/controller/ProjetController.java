@@ -24,6 +24,8 @@ public class ProjetController {
     @Autowired
     CoursRepository coursRepository;
     @Autowired
+    NotificationRepository notificationRepository;
+    @Autowired
     TypeRepository typeRepository;
     @Autowired
     ProjetRepository projetRepository;
@@ -152,7 +154,10 @@ public class ProjetController {
 
 
     }
-
+    @GetMapping("/getnot")
+    public ResponseEntity getAllNotifications() {
+        return ResponseEntity.ok(this.notificationRepository.findAll());
+    }
     @PostMapping("/add-projett/{idProbleme}")
     public void ajouterProjetprobleme(@RequestBody Projet projet, @PathVariable("idProbleme") Long idProbleme) {
         projetService.ajouterProjet(projet, idProbleme);

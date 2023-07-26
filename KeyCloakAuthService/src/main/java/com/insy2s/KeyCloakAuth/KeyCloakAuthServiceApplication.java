@@ -24,10 +24,10 @@ import java.util.Optional;
 @EnableFeignClients
 @SpringBootApplication
 public class KeyCloakAuthServiceApplication {
-@Autowired
-private RoleRepository roleRepository;
-@Autowired
-private UserRepository userRepository;
+	@Autowired
+	private RoleRepository roleRepository;
+	@Autowired
+	private UserRepository userRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(KeyCloakAuthServiceApplication.class, args);
@@ -35,21 +35,42 @@ private UserRepository userRepository;
 	@Bean
 	CommandLineRunner start(){
 		return args-> {
-			Role admin = new Role();
+
+	/*		Role admin = new Role();
+		admin.setName("ADMIN");
+		saveRole(admin)		;
+=======
+<<<<<<< HEAD
+		/*	Role admin = new Role();
 			admin.setName("ADMIN");
 			saveRole(admin)		;
 
 			Role consultant = new Role();
 			consultant.setName("CONSULTANT");
 			saveRole(consultant);
+=======
+//			Role admin = new Role();
+//			admin.setName("ADMIN");
+//			saveRole(admin)		;
+//
+//			Role consultant = new Role();
+//			consultant.setName("CONSULTANT");
+//			saveRole(consultant);
 
-			User user = new User();
+
+			Role consultant = new Role();
+		consultant.setName("CONSULTANT");
+			saveRole(consultant);
+
+	 */
+
+	/*		User user = new User();
 			user.setUsername("iheb");
 			user.setEmail("iheb@gmail.com");
 			user.setPassword("iheb");
 			user.setRoles(roleRepository.findAll());
 			saveUser(user);
-
+*/
 
 		};}
 
@@ -75,6 +96,5 @@ private UserRepository userRepository;
 
 	}
 }
-
 
 

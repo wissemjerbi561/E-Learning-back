@@ -3,7 +3,6 @@ package com.insy2s.KeyCloakAuth.service;
 import com.insy2s.KeyCloakAuth.model.LoginRequest;
 import com.insy2s.KeyCloakAuth.model.LoginResponse;
 import com.insy2s.KeyCloakAuth.model.Role;
-import com.insy2s.KeyCloakAuth.model.TokenResponse;
 import com.insy2s.KeyCloakAuth.repository.RoleRepository;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 

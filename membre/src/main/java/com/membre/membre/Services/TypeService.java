@@ -1,7 +1,8 @@
 package com.membre.membre.Services;
 
-import com.notification.Entities.Notification;
-import com.notification.Entities.Type;
+
+
+import com.membre.membre.Entities.Type;
 
 import java.util.List;
 

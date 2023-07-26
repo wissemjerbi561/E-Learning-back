@@ -4,14 +4,18 @@ import com.example.serviceprojet.Services.NotificationServiceImp;
 
 import com.example.serviceprojet.entity.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/notification")
 @CrossOrigin(exposedHeaders="Access-Control-Allow-Origin")
-
+@Controller
 public class NotificationController {
     @Autowired
     NotificationServiceImp notificationService;
@@ -37,4 +41,15 @@ public class NotificationController {
         notificationService.delete(notificationId);
     }
 
-}
+
+
+
+        @MessageMapping("/notification") // L'URL WebSocket à écouter
+        @SendTo("/topic/notifications") // L'URL WebSocket à laquelle envoyer la notification
+        public Notification handleNotification(Notification notification) {
+            // Traitez la nouvelle notification ici
+            // Diffusez la notification aux autres clients via WebSocket
+            return notification;
+        }
+    }
+

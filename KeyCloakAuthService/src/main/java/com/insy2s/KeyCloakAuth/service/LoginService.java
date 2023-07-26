@@ -19,19 +19,19 @@ import java.util.Optional;
 
 @Service
 public class LoginService {
-	
+
 	@Autowired
 	RestTemplate restTemplate;
-	
+
 	@Value("${spring.security.oauth2.client.provider.keycloak.token-uri}")
 	private String issueUrl;
-	
+
 	@Value("${spring.security.oauth2.client.registration.oauth2-client-credentials.client-id}")
 	private String clientId;
-	
+
 	@Value("${spring.security.oauth2.client.registration.oauth2-client-credentials.client-secret}")
 	private String clientSecret;
-	
+
 	@Value("${spring.security.oauth2.client.registration.oauth2-client-credentials.authorization-grant-type}")
 	private String grantType;
 
@@ -42,6 +42,23 @@ public class LoginService {
 	public ResponseEntity<LoginResponse> login(LoginRequest loginrequest) {
 		String username = loginrequest.getUsername();
 		String password = loginrequest.getPassword();
+
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+		MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+		map.add("client_id", clientId);
+		map.add("client_secret", clientSecret);
+		map.add("grant_type", grantType);
+		map.add("username", loginrequest.getUsername());
+		map.add("password", loginrequest.getPassword());
+		map.add("user",username);
+
+		HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(map,headers);
+
+		ResponseEntity<LoginResponse> response = restTemplate.postForEntity(issueUrl, httpEntity, LoginResponse.class);
+
 		User user = new User();
 		User usertosave = new User();
 		user = userRepository.findByUsername(username);
@@ -51,24 +68,10 @@ public class LoginService {
 			usertosave.setUsername(username);
 			usertosave.setPassword(password);
 			usertosave.setRoles(roleRepository.findAll());
-		user=userRepository.save(usertosave);
+			user=userRepository.save(usertosave);
 
 		}
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-		
-		MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-		map.add("client_id", clientId);
-		map.add("client_secret", clientSecret);
-		map.add("grant_type", grantType);
-		map.add("username", loginrequest.getUsername());
-		map.add("password", loginrequest.getPassword());
-		map.add("user",username);
-		
-		HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(map,headers);
-		
-		ResponseEntity<LoginResponse> response = restTemplate.postForEntity(issueUrl, httpEntity, LoginResponse.class);
 		LoginResponse loginResponse = response.getBody();
 		loginResponse.setUserId(user.getId());
 		loginResponse.setUsername(username);
@@ -77,8 +80,8 @@ public class LoginService {
 		token.setToken(response.getBody().getAccess_token());
 
 		return  ResponseEntity.status(200).body(response.getBody());
-	
-		
+
+
 	}
 	public ResponseEntity<String> logout(String jwt, String tokenRefresh) {
 		HttpHeaders headers = new HttpHeaders();

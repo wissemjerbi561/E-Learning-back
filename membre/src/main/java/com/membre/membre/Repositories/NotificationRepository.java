@@ -1,6 +1,7 @@
 package com.membre.membre.Repositories;
 
-import com.notification.Entities.Notification;
+
+import com.membre.membre.Entities.Notification;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

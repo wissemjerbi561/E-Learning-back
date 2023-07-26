@@ -1,11 +1,13 @@
 package com.membre.membre.Controllers;
 
 import com.membre.membre.Entities.Member;
+import com.membre.membre.Entities.Notification;
 import com.membre.membre.Entities.Position;
 import com.membre.membre.Repositories.MemberRepository;
 import com.membre.membre.Repositories.PositionRepository;
 import com.membre.membre.Services.EmailServiceImp;
 import com.membre.membre.Services.MemberServiceImp;
+import com.membre.membre.Services.NotificationServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -121,7 +123,15 @@ public class MemberController {
     public long countMembersWithPositionApprenant() {
         return memberService.countMembersWithPositionApprenant();
     }
+
+    @Autowired
+    NotificationServiceImp notificationService;
+
+    @PostMapping("/creatjje")
+    public Notification createNotification(@RequestBody Notification notification){
+        return notificationService.createNotification(notification);
     }
 
 
 
+}

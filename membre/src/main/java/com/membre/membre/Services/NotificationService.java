@@ -1,6 +1,6 @@
 package com.membre.membre.Services;
 
-import com.notification.Entities.Notification;
+import com.membre.membre.Entities.Notification;
 
 import java.util.List;
 
@@ -12,6 +12,6 @@ public interface NotificationService {
     public List<Notification> getAllNotifications();
     public Notification updateNotification(Long notificationId);
     public void delete(Long notificationId);
-
+    public void ajouterNotification(Notification notification, Long typeId);
 
 }

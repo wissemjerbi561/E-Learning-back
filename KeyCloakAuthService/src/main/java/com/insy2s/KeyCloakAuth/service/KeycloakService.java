@@ -44,7 +44,7 @@ public class KeycloakService {
     }
 
     public ResponseEntity<?> createUser(UserDto user) {
-        Role role = roleRepository.findByName(user.getRole()).orElse(null);
+        Role role = roleRepository.findByName(user.getRoles().toString()).orElse(null);
 
         if (role == null) {
             return ResponseEntity.badRequest().body("Role not found");

@@ -1,8 +1,8 @@
 package com.membre.membre.Services;
 
-import com.notification.Entities.Notification;
-import com.notification.Entities.Type;
-import com.notification.Repositories.TypeRepository;
+import com.membre.membre.Entities.Type;
+import com.membre.membre.Repositories.TypeRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -3,8 +3,9 @@ package com.example.serviceprojet.Services;
 import com.example.serviceprojet.entity.Notification;
 import com.example.serviceprojet.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
-
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import java.util.List;
 @Service
 public class NotificationServiceImp implements NotificationService {
@@ -38,4 +39,9 @@ public class NotificationServiceImp implements NotificationService {
         notificationRepository.delete(notification);
 
     }
+
+
+
+
+
 }
