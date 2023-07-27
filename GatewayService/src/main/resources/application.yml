@@ -40,15 +40,19 @@ spring:
          uri: http://localhost:8090
          predicates:
            - Path=/cours/**
+
        #-----------Evaluation---------------------
        - id: evaluation-service
          uri: http://localhost:8094
          predicates:
            - Path=/evaluation/**
+        #-----------Notification---------------------
+       - id: notification-service
+         uri: http://localhost:8085
+         predicates:
+           - Path=/**
 
 
-
-   
 
      default-filters:
       - DedupeResponseHeader=Access-Control-Allow-Origin
