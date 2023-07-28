@@ -17,7 +17,7 @@ import java.lang.reflect.Member;
 //@CrossOrigin(origins = "*")
 @CrossOrigin(exposedHeaders="Access-Control-Allow-Origin")
 
-@RequestMapping("/project/affectation")
+@RequestMapping("/api/project/affectation")
 public class AffectaionProjet {
 
     @Autowired

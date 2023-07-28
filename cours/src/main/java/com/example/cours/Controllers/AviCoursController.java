@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cours")
+@RequestMapping("/api/cours")
 public class AviCoursController {
     @Autowired
     AviCoursServiceImp aviCoursService;

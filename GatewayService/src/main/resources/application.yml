@@ -21,36 +21,36 @@ spring:
        - id: paiement-service
          uri: http://localhost:8083
          predicates:
-           - Path=/payment/**
+           - Path=/api/payment/**
 
 #-----------Forum---------------------
        - id: forum-service
          uri: http://localhost:8084
          predicates:
-           - Path=/forum/**
+           - Path=/api/forum/**
 
 #-----------Project-------------------
        - id: project-service
          uri: http://localhost:8091
          predicates:
-           - Path=/project/**
+           - Path=/api/project/**
 
 #-----------Cours---------------------
        - id: cours-service
          uri: http://localhost:8090
          predicates:
-           - Path=/cours/**
+           - Path=/api/cours/**
 
        #-----------Evaluation---------------------
        - id: evaluation-service
          uri: http://localhost:8094
          predicates:
-           - Path=/evaluation/**
+           - Path=/api/evaluation/**
         #-----------Notification---------------------
        - id: notification-service
          uri: http://localhost:8085
          predicates:
-           - Path=/**
+           - Path=/api/**
 
 
 

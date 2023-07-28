@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value= "/member/position")
+@RequestMapping(value= "/api/member/position")
 @CrossOrigin(value = "*")
 public class PositionController  {
     @Autowired

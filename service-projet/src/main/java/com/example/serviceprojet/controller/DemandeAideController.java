@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 //@CrossOrigin(origins = "*")
 @CrossOrigin(exposedHeaders="Access-Control-Allow-Origin")
 
-@RequestMapping("/project/demandeaide")
+@RequestMapping("/api/project/demandeaide")
 public class DemandeAideController {
 
     @Autowired

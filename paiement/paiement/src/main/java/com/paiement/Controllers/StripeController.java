@@ -26,7 +26,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/payment")
+@RequestMapping("/api/payment")
 public class StripeController {
 
     @Autowired
