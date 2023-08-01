@@ -19,7 +19,7 @@ public class Member implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
 
-    private int userId;
+    private Long userId;
     private String username;
 
     @Lob

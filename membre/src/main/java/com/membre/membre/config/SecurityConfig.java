@@ -15,8 +15,10 @@ public  class  SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
         .authorizeHttpRequests()
-        .anyRequest()
-        .authenticated();
+                .requestMatchers("/member/member/create")
+                .permitAll()
+                .anyRequest()
+                .authenticated();
         http
         .csrf().disable()
         .oauth2ResourceServer()

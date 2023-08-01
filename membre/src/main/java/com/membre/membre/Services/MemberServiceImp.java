@@ -50,13 +50,13 @@ public class MemberServiceImp implements MemberService {
 
 
     public List<Member> getTutorMembers() {
-        return memberRepository.findByPositionName("Tuteur Professionnel");
+        return memberRepository.findByPositionCode("PRO");
     }
     public List<Member> getTuteurAcademique() {
-        return memberRepository.findByPositionName("Tuteur Academique");
+        return memberRepository.findByPositionCode("ACAD");
     }
     public List<Member> getApprenantMembers() {
-        return memberRepository.findByPositionName("Apprenant");
+        return memberRepository.findByPositionCode("APP");
     }
 
     public long countMembersWithPositionApprenant() {

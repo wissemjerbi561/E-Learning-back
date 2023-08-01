@@ -12,11 +12,16 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 //@EnableFeignClients
 public class MembreApplication implements CommandLineRunner {
+
+
     @Override
     public void run(String... args) throws Exception {
-        positionRepository.save(new Position(null,"Tuteur Academique"));
-        positionRepository.save(new Position(null,"Apprenant"));
-        positionRepository.save(new Position(null,"Tuteur Professionnel"));
+        positionRepository.save(new Position(null,"Tuteur Academique","ACAD"));
+        positionRepository.save(new Position(null,"Apprenant", "APP"));
+        positionRepository.save(new Position(null,"Tuteur Professionnel","PRO"));
+        //positionRepository.save(new Position(null,"Apprenant Aide",4));
+        //positionRepository.save(new Position(null,"Apprenant Realisation",5));
+        //positionRepository.save(new Position(null,"Apprenant verification",6));
     }
     @Autowired
     private PositionRepository positionRepository;

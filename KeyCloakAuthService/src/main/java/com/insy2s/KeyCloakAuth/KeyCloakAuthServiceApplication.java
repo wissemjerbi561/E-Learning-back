@@ -32,6 +32,50 @@ public class KeyCloakAuthServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(KeyCloakAuthServiceApplication.class, args);
 	}
+
+//	@Bean
+//	CommandLineRunner start(){
+//		return args-> {
+////			Role admin = new Role();
+////			admin.setName("ADMIN");
+////			saveRole(admin)		;
+////
+////			Role consultant = new Role();
+////			consultant.setName("CONSULTANT");
+////			saveRole(consultant);
+//
+//			User user = new User();
+//			user.setUsername("iheb");
+//			user.setEmail("iheb@gmail.com");
+//			user.setPassword("iheb");
+//			user.setRoles(roleRepository.findAll());
+//			saveUser(user);
+//
+//
+//		};}
+//
+//
+//
+//	private void saveRole(Role role)
+//	{
+//		Optional<Role> roleSearched=roleRepository.findByName(role.getName());
+//		if(roleSearched.isEmpty()){
+//			roleRepository.save(role);
+//			System.out.println("The role with name "+role.getName() +" saved ");
+//
+//		}
+//		else{
+//			System.out.println("The role with name "+role.getName() +" found ");
+//		}
+//	}
+//
+//	public void saveUser(User user){
+//		userRepository.findByUsername("iheb");
+//		userRepository.save(user);
+//		System.out.println(user+"user");
+//
+//	}
+
 	@Bean
 	CommandLineRunner start(){
 		return args-> {
@@ -95,6 +139,7 @@ public class KeyCloakAuthServiceApplication {
 		System.out.println(user+"user");
 
 	}
+
 }
 
 

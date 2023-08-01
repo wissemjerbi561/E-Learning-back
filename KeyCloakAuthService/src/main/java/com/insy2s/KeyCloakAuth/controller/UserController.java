@@ -25,10 +25,11 @@ public class UserController {
 
 
 
-    @GetMapping("/find")
-    ResponseEntity<User> getUser(@RequestParam String username )
+
+    @GetMapping("/findById/{id}")
+    ResponseEntity<User> findById(@PathVariable Long id )
     {
-        return ResponseEntity.status(200).body(userService.getUser(username ));
+        return ResponseEntity.status(200).body(userService.getUserById(id ));
     }
     @GetMapping("/")
     ResponseEntity getAllUsers( )
@@ -43,11 +44,16 @@ public class UserController {
     @PostMapping(value = "/signup")
     ResponseEntity createUser(@RequestBody UserDto user){
 
-        return userService.createUser( user);
+        return userService.createUser(user);
     }
 
+    @PostMapping(value = "/addUser")
+    ResponseEntity saveUser(@RequestBody UserDto user ){
+
+        return userService.addUser(user);
+    }
     @PostMapping(value = "/create")
-    ResponseEntity saveUser(@RequestBody UserDto user){
+    ResponseEntity addUser(@RequestBody UserDto user){
 
         return keycloakService.createUser(user);
     }

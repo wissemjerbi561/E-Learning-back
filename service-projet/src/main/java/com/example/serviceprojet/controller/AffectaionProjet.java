@@ -36,7 +36,9 @@ public class AffectaionProjet {
 
     @PostMapping("/add")
     public void ajouterAffectation(@RequestBody AffectationProjet affectationProjet){
+
         affectationProjetService.ajouterAffectation(affectationProjet);
+
 
 
     }
@@ -49,18 +51,20 @@ public class AffectaionProjet {
 
 
     }
+
     @Autowired
     private NotificationHandler notificationHandler;
 
     // ...
 
     @PostMapping("/addapprenantverification")
+
+
     public void ajouterAffectationApprenantVerification(@RequestBody AffectationProjet affectationProjet){
         affectationProjetService.ajouterAffectationApprenantVerification(affectationProjet);
 
 
     }
-
 
 
     @PostMapping("/addapprenantaide")
@@ -70,7 +74,6 @@ public class AffectaionProjet {
 
 
     }
-
 
 
 

@@ -4,6 +4,7 @@ import com.example.cours.Entities.Chapitre;
 import com.example.cours.Entities.Cours;
 import com.example.cours.Services.CoursServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,6 +13,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/cours")
 public class CoursController {
+
+    @GetMapping("/courses/{id}")
+    public ResponseEntity<Cours> getCourseById(@PathVariable Long id) {
+        Cours course = coursService.getCourseById(id);
+        if (course == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(course);
+    }
     @Autowired
     CoursServiceImp coursService;
 

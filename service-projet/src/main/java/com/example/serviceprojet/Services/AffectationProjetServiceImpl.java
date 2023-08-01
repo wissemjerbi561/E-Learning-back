@@ -22,6 +22,7 @@ public class AffectationProjetServiceImpl implements IAffectationProjetService {
 
         affectationProjet.setProjet(projet);
         affectationProjet.setRole("Tuteur Professionnel");
+        affectationProjet.setExisting(true);
 
         affectationProjet=affectationProjetRepository.save(affectationProjet);
         return affectationProjet;
@@ -45,6 +46,7 @@ public class AffectationProjetServiceImpl implements IAffectationProjetService {
         affectationProjet.setProjet(projet);
         affectationProjet.setRole("Apprenant verification");
 
+
         affectationProjet=affectationProjetRepository.save(affectationProjet);
         return affectationProjet;
 
@@ -60,5 +62,9 @@ public class AffectationProjetServiceImpl implements IAffectationProjetService {
         return affectationProjet;
 
     }
+
+
+
+
 
 }

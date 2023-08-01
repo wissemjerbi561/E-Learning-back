@@ -4,12 +4,14 @@ import com.example.serviceprojet.entity.AffectationTache;
 import com.example.serviceprojet.entity.Projet;
 import com.example.serviceprojet.entity.Tache;
 import com.example.serviceprojet.repository.AffectationTacheRepository;
+import com.example.serviceprojet.repository.ProjetRepository;
 import com.example.serviceprojet.repository.TacheRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AffectationTacheServiceImpl implements IAffectationTacheService{
@@ -17,6 +19,8 @@ public class AffectationTacheServiceImpl implements IAffectationTacheService{
     private AffectationTacheRepository affectationTacheRepository;
     @Autowired
     TacheRepository tacheRepository;
+    @Autowired
+    ProjetRepository projetRepository;
     @Override
     public AffectationTache ajouterAffectationTache(AffectationTache affectationTache){
 

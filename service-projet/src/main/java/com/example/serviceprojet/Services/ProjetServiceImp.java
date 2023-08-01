@@ -17,6 +17,8 @@ public class ProjetServiceImp implements IProjetService{
     @Autowired
     AffectationTacheRepository affectationTacheRepository;
     @Autowired
+    AffectationProjetRepository affectationProjetRepository;
+    @Autowired
     CoursRepository coursRepository;
     @Autowired
     ProblemeRepository problemeRepository;
@@ -214,6 +216,9 @@ public class ProjetServiceImp implements IProjetService{
     }
     public List<AffectationTache> getAffectationTachesDuProjet(Long idProjet) {
         return affectationTacheRepository.findAffectationsDuProjet(idProjet);
+    }
+    public List<AffectationProjet> getMembersDuProjet(Long idProjet) {
+        return affectationProjetRepository.findMembersDuProjet(idProjet);
     }
     public List<Tache> getAffectationTachesnonaffectesDuProjet(Long idProjet) {
         return tacheRepository.findTachesNonAffecteesAuProjet(idProjet);

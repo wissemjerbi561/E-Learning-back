@@ -24,6 +24,10 @@ import java.util.UUID;
 
 @Service
 public class CoursServiceImp implements CoursService{
+
+    public Cours getCourseById(Long idc) {
+        return coursRepo.findById(idc).orElse(null);
+    }
     @Autowired
     CoursRepo coursRepo;
     @Autowired

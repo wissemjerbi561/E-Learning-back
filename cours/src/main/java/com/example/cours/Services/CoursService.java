@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface CoursService {
+    public Cours getCourseById(Long idc);
     public Cours saveCours(Cours c);
     public Cours retrieveCours(Long idCr);
     public List<Cours>  retrieveAll();

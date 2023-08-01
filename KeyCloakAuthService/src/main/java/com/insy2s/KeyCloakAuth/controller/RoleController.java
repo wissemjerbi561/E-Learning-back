@@ -4,15 +4,13 @@ import com.insy2s.KeyCloakAuth.model.Role;
 import com.insy2s.KeyCloakAuth.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/keycloak/roles")
+@CrossOrigin("*")
 public class RoleController {
     @Autowired
     private RoleService roleService;
@@ -32,11 +30,14 @@ public class RoleController {
     {
         return roleService.getAllRoles();
     }
+
+
     @PostMapping("/create")
-    ResponseEntity create(Role role )
+    Role create(@RequestBody  Role role)
 
     {
-        return roleService.createUser( role);
+
+        return roleService.createRole(role);
     }
 
 }
