@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value= "/payment/orderItem")
+@RequestMapping(value= "/api/payment/orderItem")
 @CrossOrigin(value = "*")
 public class OrderItemController {
     @Autowired

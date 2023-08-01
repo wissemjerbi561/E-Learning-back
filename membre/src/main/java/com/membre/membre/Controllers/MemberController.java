@@ -18,7 +18,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(value= "/member/member")
+@RequestMapping(value= "/api/member/member")
 @CrossOrigin(value = "*")
 public class MemberController {
     @Autowired

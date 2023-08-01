@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/project/tache")
+@RequestMapping("/api/project/tache")
 public class TacheController {
 
 

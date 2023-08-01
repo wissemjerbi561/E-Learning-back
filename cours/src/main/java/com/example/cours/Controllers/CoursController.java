@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cours")
+@RequestMapping("/api/cours")
 public class CoursController {
 
     @GetMapping("/courses/{id}")

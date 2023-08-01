@@ -26,7 +26,7 @@ import java.util.Optional;
 @RestController
 @CrossOrigin(origins = "*")
 
-@RequestMapping("/project/probleme")
+@RequestMapping("/api/project/probleme")
 
 
 public class ProblemeController {

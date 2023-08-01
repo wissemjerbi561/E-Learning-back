@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/type")
+@RequestMapping("/api/type")
 @CrossOrigin(value = "*")
 public class TypeController {
     @Autowired

@@ -18,7 +18,7 @@ import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/project/projet")
+@RequestMapping("/api/project/projet")
 public class ProjetController {
 
     @Autowired

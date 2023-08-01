@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
 //@CrossOrigin(origins = "*")
 @CrossOrigin(exposedHeaders="Access-Control-Allow-Origin")
 
-@RequestMapping("/project/affectationtache")
+@RequestMapping("/api/project/affectationtache")
 public class AffectationTacheController {
     @Autowired
     AffectationTacheRepository affectationTacheRepository;
