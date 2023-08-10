@@ -9,6 +9,7 @@ import com.membre.membre.Services.EmailServiceImp;
 import com.membre.membre.Services.MemberServiceImp;
 import com.membre.membre.Services.NotificationServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
@@ -72,10 +73,11 @@ public class MemberController {
 
         return memberRepository.findMemberByUserId(userId);
     }
-    @PutMapping("/update/{id}")
-    public void updateMember(@PathVariable Long id, @RequestBody Member member) {
-        Member member1 = memberRepository.findById(id).orElse(null);
-        if (member1 != null) {
+    @PutMapping("/{memberId}")
+    public ResponseEntity<Member> updateMember(@PathVariable Long memberId, @RequestBody Member member) {
+
+        Member member1 = memberRepository.findById(memberId).orElse(null);
+
             member1.setMemberId(member.getMemberId());
 
             member1.setFirstName(member.getFirstName());
@@ -86,8 +88,10 @@ public class MemberController {
             member1.setGitLink(member.getGitLink());
             member1.setDriveLink(member.getDriveLink());
 
-            memberRepository.save(member1);
-        }
+            Member updateMember = memberRepository.save(member1);
+            return ResponseEntity.ok(updateMember);
+
+
     }
 
     @DeleteMapping("/delete/{memberId}")

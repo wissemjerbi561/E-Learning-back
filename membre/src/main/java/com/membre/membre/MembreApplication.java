@@ -16,9 +16,9 @@ public class MembreApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        positionRepository.save(new Position(null,"Tuteur Academique","ACAD"));
-        positionRepository.save(new Position(null,"Apprenant", "APP"));
-        positionRepository.save(new Position(null,"Tuteur Professionnel","PRO"));
+        positionRepository.save(new Position(null,"Tuteur Academique","ACAD",1,false));
+        positionRepository.save(new Position(null,"Apprenant", "APP",2,false));
+        positionRepository.save(new Position(null,"Tuteur Professionnel","PRO",3,false));
         //positionRepository.save(new Position(null,"Apprenant Aide",4));
         //positionRepository.save(new Position(null,"Apprenant Realisation",5));
         //positionRepository.save(new Position(null,"Apprenant verification",6));

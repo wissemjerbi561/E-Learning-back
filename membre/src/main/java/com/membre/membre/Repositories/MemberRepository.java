@@ -14,8 +14,8 @@ import java.util.List;
 public interface MemberRepository extends JpaRepository<Member,Long> {
     @Query("SELECT m FROM Member m JOIN m.positions p WHERE p.name = :name")
     List<Member> findByPositionName(@Param("name") String name);
-    @Query("SELECT m FROM Member m JOIN m.positions p WHERE p.Code = :Code")
-    List<Member> findByPositionCode(@Param("Code") String Code);
+    @Query("SELECT m FROM Member m JOIN m.positions p WHERE p.code = :code")
+    List<Member> findByPositionCode(@Param("code") String code);
     @Query("SELECT COUNT(m) FROM Member m JOIN m.positions p WHERE p.name = 'Apprenant'")
     long countByPositionNameApprenant();
 

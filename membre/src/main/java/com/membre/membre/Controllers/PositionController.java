@@ -2,9 +2,13 @@ package com.membre.membre.Controllers;
 
 import com.membre.membre.Entities.Position;
 import com.membre.membre.Repositories.PositionRepository;
+import com.membre.membre.Services.PositionServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value= "/api/member/position")
@@ -12,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 public class PositionController  {
     @Autowired
     PositionRepository positionRepository;
+    @Autowired
+    PositionServiceImp positionServiceImp;
 
     public PositionController(PositionRepository positionRepository){
 
@@ -46,5 +52,18 @@ public class PositionController  {
     public void deletePositionById(@PathVariable Long id){
 
         positionRepository.deleteById(id);}
+
+    @PutMapping("/desactiver/{positionId}")
+    public ResponseEntity<Position> deactiverPosition(@PathVariable Long positionId, @RequestBody Position position) {
+        Position position1 = positionRepository.findById(positionId).orElseThrow(() -> new ResourceNotFoundException("projet not exist with id" + positionId));
+        position1.setStatus(true); // Désactiver le projet
+
+        Position updatePosition = positionRepository.save(position1);
+        return ResponseEntity.ok(updatePosition);
+    }
+    @GetMapping("/positions/statusFalse")
+    public List<Position> obtenirPositionStatusFalse() {
+        return positionServiceImp.obtenirPositionStatusFalse();
+    }
 
 }

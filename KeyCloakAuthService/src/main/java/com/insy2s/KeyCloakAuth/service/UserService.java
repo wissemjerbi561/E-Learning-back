@@ -291,6 +291,7 @@ public class UserService {
         userRepresentation.setEnabled(true);
         userRepresentation.setRealmRoles(userRep);
         userRepresentation.setEmailVerified(false);
+        //userRepresentation.
 
 
 
