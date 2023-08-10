@@ -53,7 +53,10 @@ public class MemberController {
             member.setPositions(ps);
         }
         // send mail method call
-        emailService.sendmail(member.getFirstName(), member.getEmail(), member.getPassword());
+        String randomPassword = memberService.generateRandomPassword();
+        System.out.println("password" + randomPassword);
+        member.setPassword(randomPassword);
+        emailService.sendmail(member.getUsername(), member.getEmail(), member.getPassword());
         return ResponseEntity.ok(memberRepository.save(member));
     }
     @GetMapping("/members")

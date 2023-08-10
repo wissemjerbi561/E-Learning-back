@@ -115,9 +115,9 @@ public class UserService {
 
 
 
-        String randomPassword = generateRandomPassword();
+/*        String randomPassword = generateRandomPassword();
         System.out.println("password" + randomPassword);
-        user.setPassword(randomPassword);
+        user.setPassword(randomPassword);*/
 
 
 
@@ -429,6 +429,70 @@ public class UserService {
         User userSearched=userRepository.findById((long) id).get();
         userRepository.delete(userSearched);
         return ResponseEntity.status(200).body("the User "+userSearched.getUsername()+" deleted with success");
+    }
+    public ResponseEntity ajoutUser(UserDto user) {
+        System.out.println("rolesKey" + rolesKey);
+
+        LoginRequest loginRequest = new LoginRequest("insy2s", "insy2s");
+        ResponseEntity<LoginResponse> token = loginService.login(loginRequest);
+
+        HttpHeaders headersuser = new HttpHeaders();
+        headersuser.setBearerAuth(token.getBody().getAccess_token());
+
+        Collection<Role> targetRoles = new ArrayList<>();
+        Collection<Role> roles = user.getRoles();
+        Optional<Role> roleUser = Optional.of(new Role());
+
+        for (Role role : roles) {
+            String roleName = role.getName();
+            roleUser = roleRepository.findByName(roleName);
+            targetRoles.add(roleUser.get());
+        }
+        List<String> userRep ;
+
+        userRep = targetRoles.stream().map(Role::getName).collect(Collectors.toList());
+        // Retrieve the RealmResource
+
+        RealmResource realmResource = keycloak.realm(realm);
+
+        // Get the UsersResource
+        UsersResource usersResource = realmResource.users();
+
+        User userSaved = new User();
+
+        UserRepresentation userRepresentation = new UserRepresentation();
+        userRepresentation.setFirstName(user.getFirstname());
+        userRepresentation.setLastName(user.getLastname());
+        userRepresentation.setEmail(user.getEmail());
+        userRepresentation.setUsername(user.getUsername());
+        userRepresentation.setCredentials(Collections.singletonList(getPasswordCredentials(user.getPassword())));
+        userRepresentation.setEnabled(true);
+        userRepresentation.setRealmRoles(userRep);
+        userRepresentation.setEmailVerified(false);
+
+        HttpEntity<UserRepresentation> request = new HttpEntity<>(userRepresentation, headersuser);
+
+        String userUrl = issueUrlUser + "/users/";
+        System.out.println(userUrl + "issueUrl");
+        URI uri = UriComponentsBuilder.fromUriString(userUrl).buildAndExpand("KeyClock-INSY2S-E-LEARING").toUri();
+        String userSearchedFromKeycloak = getUserByIdFromKeycloak(user.getUsername());
+        System.out.println(userSearchedFromKeycloak + "userSearched");
+
+        ResponseEntity<UserRepresentation> response = restTemplate.postForEntity(uri, request, UserRepresentation.class);
+        System.out.println("status code = " + response.getStatusCode().is2xxSuccessful());
+        if (response.getStatusCode().is2xxSuccessful()) {
+
+            userSaved.setId(user.getId());
+            userSaved.setFirstname(user.getFirstname());
+            userSaved.setUsername(user.getUsername());
+            userSaved.setLastname(user.getLastname());
+            userSaved.setEmail(user.getEmail());
+            userSaved.setPassword(user.getPassword());
+            userSaved.setRoles(targetRoles);
+
+            userRepository.save(userSaved);
+        }
+        return ResponseEntity.status(201).body(userSaved);
     }
 
 

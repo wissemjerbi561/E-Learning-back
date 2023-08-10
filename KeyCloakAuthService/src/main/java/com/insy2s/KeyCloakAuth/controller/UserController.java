@@ -41,6 +41,7 @@ public class UserController {
 //    {
 //        return userService.test( );
 //    }
+
     @PostMapping(value = "/signup")
     ResponseEntity createUser(@RequestBody UserDto user){
 
@@ -66,6 +67,11 @@ public class UserController {
     ResponseEntity deleteUser(@PathVariable int id){
 
         return userService.deleteUser( id);
+    }
+    @PostMapping(value = "/ajoutUser")
+    ResponseEntity ajoutUser(@RequestBody UserDto user){
+
+        return userService.ajoutUser(user);
     }
 
 }
