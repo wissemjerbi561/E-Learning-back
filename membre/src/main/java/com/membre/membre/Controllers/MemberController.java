@@ -139,6 +139,11 @@ public class MemberController {
     public Notification createNotification(@RequestBody Notification notification){
         return notificationService.createNotification(notification);
     }
+    @PostMapping("/ajoutMember")
+    public ResponseEntity<Member> ajoutMember(@RequestBody Member member) {
+
+        return ResponseEntity.ok(memberRepository.save(member));
+    }
 
 }
 

@@ -14,17 +14,18 @@ public class EmailServiceImp implements EmailService {
     private JavaMailSender mailSenderObj;
 
     public EmailServiceImp(JavaMailSender mailSenderObj) {
+
         this.mailSenderObj = mailSenderObj;
     }
     @Override
-    public void sendmail(String firstname,String email,String password) {
+    public void sendmail(String username,String email,String password) {
         final String emailToRecipient = email;
         final String emailSubject = "Suceesfully Registration";
         final String emailMessage1 = "<html> <body> <p>Dear Sir/Madam,</p><p>You have succesfully Registered with our Services"
                 + "<br><br>"
                 + "<table border='1' width='300px' style='text-align:center;font-size:20px;color:red;'><tr> <td colspan='3'>"
                 + "</td></tr>"
-                + "<tr><td>Name</td><td>" + firstname + "</td></tr>"
+                + "<tr><td>Name</td><td>" + username + "</td></tr>"
                 +"<tr><td>Email</td><td>" + email + "</td></tr>"
                 +"<tr><td>Password</td><td>" + password + "</td></tr>"
                 +"</table> "
