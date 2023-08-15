@@ -315,7 +315,9 @@ public class UserService {
             userSaved.setEmail(user.getEmail());
             userSaved.setPassword(user.getPassword());
             userSaved.setRoles(targetRoles);
-            emailServiceImp.sendmail(user.getFirstname(),user.getEmail(),user.getPassword());
+            emailServiceImp.sendmail(user.getUsername(),user.getEmail(),user.getPassword());
+
+            System.out.println("---------------------------------------------");
             userRepository.save(userSaved);
         }
 
