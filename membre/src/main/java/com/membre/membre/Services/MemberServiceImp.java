@@ -1,7 +1,9 @@
 package com.membre.membre.Services;
 
 import com.membre.membre.Entities.Member;
+import com.membre.membre.Entities.Position;
 import com.membre.membre.Repositories.MemberRepository;
+import com.membre.membre.Repositories.PositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -17,6 +19,8 @@ public class MemberServiceImp implements MemberService {
 
     @Autowired
     MemberRepository memberRepository;
+    @Autowired
+    PositionRepository positionRepository;
 
     @Override
     public void saveMemberToDB( MultipartFile file, String firstName, String lastName, String email, String password,
@@ -78,4 +82,8 @@ public class MemberServiceImp implements MemberService {
 
         return sb.toString();
     }
+    public List<Member> getPositionMemberByCode(String code) {
+        return memberRepository.findByPositionCode(code);
+    }
+
 }

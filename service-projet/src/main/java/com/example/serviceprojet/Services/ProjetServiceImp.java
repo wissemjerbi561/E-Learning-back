@@ -14,6 +14,7 @@ import java.util.List;
 public class ProjetServiceImp implements IProjetService{
     @Autowired
     ProjetRepository projetRepository;
+
     @Autowired
     AffectationTacheRepository affectationTacheRepository;
     @Autowired

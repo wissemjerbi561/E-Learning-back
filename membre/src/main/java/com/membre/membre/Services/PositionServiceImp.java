@@ -16,4 +16,9 @@ public class PositionServiceImp implements PositionService{
     public List<Position> obtenirPositionStatusFalse() {
         return positionRepository.findByStatusFalse();
     }
+
+
+    public  List<Position>getApprenantPositions(){
+        return positionRepository.getListApprenant();
+    }
 }

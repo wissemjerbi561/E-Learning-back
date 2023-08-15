@@ -19,8 +19,7 @@ public  class  SecurityConfig {
                 .permitAll()
                 .anyRequest()
                 .authenticated();
-        http
-        .csrf().disable()
+        http.csrf().disable()
         .oauth2ResourceServer()
         .jwt();        return http
         .build();    }}

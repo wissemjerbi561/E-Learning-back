@@ -21,6 +21,8 @@ public class Projet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idProjet;
+    private String name;
+
     private String description;
   //  private Date DateDebut;
    // private Date DateFin;
@@ -28,6 +30,7 @@ public class Projet {
     private boolean demarre = false;
     private boolean status = false;
     private Integer memberId;
+
     @OneToMany(mappedBy = "projet", cascade = CascadeType.ALL)
     private List<Phase> phases = new ArrayList<>();
 

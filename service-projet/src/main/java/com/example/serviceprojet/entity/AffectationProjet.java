@@ -20,6 +20,9 @@ public class AffectationProjet {
     private  String  role ;
     private boolean  existing;
   //  private long memberId;
+
+    private Integer positionId;
+
     @ManyToOne
 
    // @JsonIgnore
@@ -31,6 +34,7 @@ public class AffectationProjet {
 
     @Column(name = "member_id")
     private Long memberId;
+    
 
     public AffectationProjet(Projet projet, Long memberId) {
         this.projet = projet;

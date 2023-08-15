@@ -5,9 +5,7 @@ import com.membre.membre.Entities.Notification;
 import com.membre.membre.Entities.Position;
 import com.membre.membre.Repositories.MemberRepository;
 import com.membre.membre.Repositories.PositionRepository;
-import com.membre.membre.Services.EmailServiceImp;
-import com.membre.membre.Services.MemberServiceImp;
-import com.membre.membre.Services.NotificationServiceImp;
+import com.membre.membre.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +30,8 @@ public class MemberController {
     MemberRepository memberRepository;
     @Autowired
     private MemberServiceImp memberService;
+    @Autowired
+    private PositionServiceImp positionServiceImp;
 
     public MemberController(EmailServiceImp emailService, MemberRepository memberRepository,
                             MemberServiceImp memberService) {
@@ -139,7 +139,16 @@ public class MemberController {
     public Notification createNotification(@RequestBody Notification notification){
         return notificationService.createNotification(notification);
     }
+    @GetMapping("/{code}/members")
+    public List<Member> getPositionMemberByCode(@PathVariable String code) {
+        return memberService.getPositionMemberByCode(code);
+    }
 
+
+    @GetMapping("/apprenantPosition")
+    public List<Position> getApprenantPositions() {
+        return positionServiceImp.getApprenantPositions();
+    }
 }
 
 
