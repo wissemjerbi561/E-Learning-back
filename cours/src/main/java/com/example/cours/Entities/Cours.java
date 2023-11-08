@@ -23,7 +23,7 @@ public class Cours {
     private Long idCours;
     private String nom;
     private String description;
-
+    private boolean actif=false;
    @Value("0")
    private int nbrDesInscrits;
     @Value("0")
@@ -63,4 +63,9 @@ public class Cours {
 
  @Transient
  private Double price;
+ @JsonManagedReference
+ @OneToMany(mappedBy = "courst")
+
+ private Set<Test> tests;
+
 }

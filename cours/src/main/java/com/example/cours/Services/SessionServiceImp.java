@@ -26,8 +26,9 @@ public class SessionServiceImp implements SessionService{
 
     @Override
     public List<Session> RetrieveAllCh() {
-        List<Session> session =( List<Session>)sessionRepo.findAll();
-        return session;
+       // List<Session> session =( List<Session>)sessionRepo.findAll();
+       // return session;
+        return sessionRepo.findInactiveSessions();
     }
 
     @Override
@@ -68,5 +69,20 @@ sessionRepo.deleteById(idses);
         ses.getCourss().add(cr);
         sessionRepo.save(ses);
 
+    }
+
+    public Session updateSession(Session updatedSession) {
+        if (updatedSession.getIdSession() != null && coursRepo.existsById(updatedSession.getIdSession())) {
+            return sessionRepo.save(updatedSession);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Session logicDeleteSession(Long idSesson) {
+        Session session=sessionRepo.findById(idSesson).get();
+        session.setActif(true);
+        return sessionRepo.save(session);
     }
 }

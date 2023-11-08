@@ -18,4 +18,6 @@ public interface CoursRepo extends CrudRepository<Cours,Long> {
 
     @Query(value = "SELECT * FROM Cours WHERE note_moyenne_satisfaction >= 3 ORDER BY note_moyenne_satisfaction DESC", nativeQuery = true)
     List<Cours> getCoursByNoteMoyenneSatisfaction();
+    @Query(value = "SELECT * FROM cours WHERE actif = false", nativeQuery = true)
+    List<Cours> findCoursInactifs();
 }

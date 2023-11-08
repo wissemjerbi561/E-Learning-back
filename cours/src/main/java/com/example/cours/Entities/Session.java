@@ -26,6 +26,7 @@ public class Session {
     private Date dateFin;
     private boolean active;
     private Integer capacite;
+    private boolean actif=false;
 @ManyToMany
     Set<Cours> courss;
     @JsonManagedReference

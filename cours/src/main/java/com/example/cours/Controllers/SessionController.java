@@ -1,9 +1,11 @@
 package com.example.cours.Controllers;
 
+import com.example.cours.Entities.Cours;
 import com.example.cours.Entities.Session;
 import com.example.cours.Entities.Tarif;
 import com.example.cours.Services.SessionServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,5 +34,19 @@ public class SessionController {
     @PutMapping("/ajouterCoursAuSession/{idSession}/{idCours}")
         public void ajouterCourAuSession(@PathVariable Long idSession,@PathVariable Long idCours){
         sessionService.ajoutCoursSes(idSession,idCours);
+    }
+    @PostMapping("/updateSession")
+    public ResponseEntity<Session> updateSession(@RequestBody Session updatedSession) {
+        Session updatedSESSION = sessionService.updateSession(updatedSession);
+
+        if (updatedSession != null) {
+            return ResponseEntity.ok(updatedSession);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @PutMapping("/deletelogicSession/{ids}")
+    public Session DELETELogic(@PathVariable Long ids){
+        return sessionService.logicDeleteSession(ids);
     }
 }

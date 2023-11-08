@@ -16,4 +16,6 @@ public interface CoursService {
     public void calculNotemoyenne(Long idcr);
     public Cours saveAffectCr(Cours cr, MultipartFile imageFile);
     public Cours saveAffectCrSi(Cours cr);
+    public Cours updateCours(Cours updatedCours);
+    public Cours logicDeleteCours(Long idcr);
 }

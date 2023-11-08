@@ -7,6 +7,7 @@ import com.example.cours.Repositories.TarifRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -34,10 +35,32 @@ tarifRepo.delete(tr);
     }
 
     @Override
-    public Tarif saveAffectCh(Tarif tr) {
+   /* public Tarif saveAffectCh(Tarif tr) {
         tarifRepo.save(tr);
         Cours cr=coursRepo.findById(tr.getIdCours()).get();
         tr.setCourstr(cr);
         return  tarifRepo.save(tr);
+    }*/
+    public Tarif saveAffectCh(Tarif tr) {
+        List<Tarif> Tarifexistants = (List<Tarif>) tarifRepo.findAll();
+        Cours cr = coursRepo.findById(tr.getIdCours()).orElse(null);
+        if (cr == null) {
+            throw new IllegalArgumentException("Le cours avec l'id " + tr.getIdCours() + " n'existe pas");
+        }
+        tr.setCourstr(cr);
+
+        for (Tarif tarifexistant : Tarifexistants) {
+            if (tarifexistant.getCourstr() == cr && tarifexistant.getDateExpiration() == null) {
+                tarifexistant.setDateExpiration(tr.getDateDebut());
+                tarifRepo.save(tarifexistant);
+            } else if (tarifexistant.getCourstr() == cr && tarifexistant.getDateExpiration() != null && tarifexistant.getDateExpiration().after(new Date())) {
+                tarifexistant.setDateExpiration(tr.getDateDebut());
+                tarifRepo.save(tarifexistant);
+            }
+        }
+        return tarifRepo.save(tr);
+    }
+    public Tarif getTarifCourantParCours(Long id) {
+        return tarifRepo.findByCoursIdAndDateExpirationNull(id);
     }
 }

@@ -51,8 +51,8 @@ public class CoursServiceImp implements CoursService{
 
     @Override
     public List<Cours> retrieveAll() {
-        List<Cours> listcr=( List<Cours>)coursRepo.findAll();
-        return listcr;
+       // List<Cours> listcr=( List<Cours>)coursRepo.findAll();
+        return coursRepo.findCoursInactifs();
     }
 
     @Override
@@ -152,5 +152,18 @@ public class CoursServiceImp implements CoursService{
     public List<Cours> getCoursByNoteMoyenneSatisfaction() {
         return coursRepo.getCoursByNoteMoyenneSatisfaction();
     }
+    public Cours updateCours(Cours updatedCours) {
+        if (updatedCours.getIdCours() != null && coursRepo.existsById(updatedCours.getIdCours())) {
+            return coursRepo.save(updatedCours);
+        } else {
+            return null;
+        }
+    }
 
+    @Override
+    public Cours logicDeleteCours(Long idcr) {
+        Cours cours=coursRepo.findById(idcr).get();
+        cours.setActif(true);
+        return coursRepo.save(cours);
+    }
 }

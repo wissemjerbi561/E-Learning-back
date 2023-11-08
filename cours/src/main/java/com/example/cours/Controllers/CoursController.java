@@ -74,4 +74,19 @@ public class CoursController {
     public Cours ajouteraffecterchsi(@RequestBody Cours cr) {
         return coursService.saveAffectCrSi(cr);
     }
+
+    @PostMapping("/updateCours")
+    public ResponseEntity<Cours> updateCours(@RequestBody Cours updatedCours) {
+        Cours updatedCourse = coursService.updateCours(updatedCours);
+
+        if (updatedCourse != null) {
+            return ResponseEntity.ok(updatedCourse);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @PutMapping("/deletelogicCR/{idc}")
+    public Cours DELETELogic(@PathVariable Long idc) {
+        return coursService.logicDeleteCours(idc);
+    }
 }

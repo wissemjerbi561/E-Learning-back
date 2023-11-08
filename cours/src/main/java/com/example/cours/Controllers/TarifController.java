@@ -29,4 +29,8 @@ public class TarifController {
     public void supprimertr(@PathVariable Long idtr){
         tarifService.deleteCh(idtr);
     }
+    @GetMapping("/affichtarifCourant/{idcr}")
+    public  Tarif affichertrCourant(@PathVariable Long idcr){
+        return tarifService.getTarifCourantParCours(idcr);
+    }
 }

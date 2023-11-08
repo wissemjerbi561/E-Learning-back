@@ -7,27 +7,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
 
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class Tarif {
+@AllArgsConstructor
+public class Choix {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idTarif;
-    @Temporal(TemporalType.DATE)
-    private Date dateDebut;
-    @Temporal(TemporalType.DATE)
-    private Date dateExpiration;
+    private Long id;
+    private String text;
+
+    private boolean correction;
     @Transient
-    private Long idCours;
+    private Long idQuestion;
+    private Boolean choixApprenant;
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "cours_id")
-    private Cours courstr;
-
-    private Double price;
+    private Question question;
 }

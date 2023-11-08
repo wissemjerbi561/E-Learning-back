@@ -1,5 +1,6 @@
 package com.example.cours.Services;
 
+import com.example.cours.Entities.Cours;
 import com.example.cours.Entities.Session;
 import com.example.cours.Entities.Tarif;
 
@@ -12,4 +13,6 @@ public interface SessionService {
     public void deleteCh(Long idses);
     public Session saveAffectCh(Session ses);
     public void ajoutCoursSes(Long idses,Long idcr);
+    public Session updateSession(Session updatedSession);
+    public Session logicDeleteSession(Long idSesson);
 }
